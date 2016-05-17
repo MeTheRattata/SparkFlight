@@ -53,7 +53,7 @@ public class SparkFlight extends ApplicationAdapter {
 		batch.draw(dogImage, dog.x, dog.y, dog.width, dog.height);
 		batch.end();
 		
-		//Change dog's position to the positon of any clicks within the window
+		//Change dog's position to the position of any clicks within the window
 		if(Gdx.input.isTouched()) 
 		{
 		      touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
