@@ -22,7 +22,7 @@ import com.badlogic.gdx.physics.box2d.World;
 public class SparkFlight extends ApplicationAdapter {
 	private SpriteBatch batch;
 	private OrthographicCamera camera;
-	Rectangle plane;
+	private Rectangle plane;
 	private Texture planeImage;
 	
 	@Override
