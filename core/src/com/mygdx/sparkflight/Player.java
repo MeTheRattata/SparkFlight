@@ -16,7 +16,7 @@ public class Player extends Entities
 	final double WEIGHT = 0.045;
 	public Player(double x, double y, double c) 
 	{
-		super(x, y, c);
+		super(x, y, c,"plane");
 		positionX = x;
 		positionY = y;
 		fieldStrength = c;
