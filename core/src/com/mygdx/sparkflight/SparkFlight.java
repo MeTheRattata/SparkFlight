@@ -10,7 +10,14 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 
 public class SparkFlight extends ApplicationAdapter {
 	private SpriteBatch batch;
@@ -19,6 +26,8 @@ public class SparkFlight extends ApplicationAdapter {
 	private Texture dogImage;
 	private Music spinningDog;
 	private Vector3 touchPos;
+	private World world;
+	private Body body;
 	
 	@Override
 	public void create () {
@@ -37,11 +46,45 @@ public class SparkFlight extends ApplicationAdapter {
 		
 		spinningDog.setLooping(true);
 		spinningDog.play();
+		
+		//Make a new world with a gravity constant of 9.8 N
+		world = new World(new Vector2(0, -98f), true);
+		
+		//Make a new body definition, make it a dynamic body
+		BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        
+        //Set the position of the body definition to the dog's position
+        bodyDef.position.set(dog.getX(), dog.getY());
+        
+        //Create a new physics body
+        body = world.createBody(bodyDef);
+        
+        //Create a new shape, set its dimensions to the dimensions of the dog
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(dog.getWidth()/2, dog.getHeight()/2);
+        
+        //Create a fixture definition (something that knows where the collision box is, 
+        //and the other physics properties of the dog, like density, mass, weight, etc)
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = shape;
+        fixtureDef.density = 1f;
+        
+        //Create a fixture with this definition
+        Fixture fixture = body.createFixture(fixtureDef);
+        
+        shape.dispose();
 	}
 
 	@Override
 	public void render () 
 	{
+		//Calcumalate physics things
+		world.step(Gdx.graphics.getDeltaTime(), 6, 2);
+		
+		//Set the dog's position to that of the physics body
+		dog.setPosition(body.getPosition().x, body.getPosition().y);
+		
 		Gdx.gl.glClearColor(1 , 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
