@@ -39,9 +39,10 @@ public class Player extends Entities
 
 		for(int i = 0; i < entities.size();i++)
 		{
-			double netforcex = ()
-//			vectors.add(new Vector2((float) ((entities.get(i).getX() - midPointX)),(float) (entities.get(i).getY() - midPointY)));
-//			netForce.add(vectors.get(i));
+			double netforcex = (K * fieldStrength * entities.get(i).getCharge())/(Math.pow((entities.get(i).getX() - midPointX), 2));
+			double netforcey = (K * fieldStrength * entities.get(i).getCharge())/(Math.pow((entities.get(i).getY() - midPointY), 2));
+			vectors.add(new Vector2((float)netforcex,(float)netforcey));
+			netForce.add(vectors.get(i));
 		}
 		velocity.add(netForce);
 		
