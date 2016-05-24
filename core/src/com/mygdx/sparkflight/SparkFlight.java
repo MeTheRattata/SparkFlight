@@ -1,5 +1,7 @@
 package com.mygdx.sparkflight;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -24,6 +26,7 @@ public class SparkFlight extends ApplicationAdapter {
 	private OrthographicCamera camera;
 	private Rectangle plane;
 	private Texture planeImage;
+	private ArrayList<Entities> entities = new ArrayList<Entities>();
 	
 	@Override
 	public void create () 
@@ -51,8 +54,16 @@ public class SparkFlight extends ApplicationAdapter {
 		//Makes batch only show what is inside the camera's FOV
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
+		
 		batch.draw(planeImage, plane.x, plane.y, plane.width, plane.height);
 		batch.end();
+		
+		if(Gdx.input.isTouched()) {
+		      Vector3 touchPos = new Vector3();
+		      touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+		      camera.unproject(touchPos);
+		      // Spawn a source charge
+		   }
 	}
 	
 	public void dispose()
