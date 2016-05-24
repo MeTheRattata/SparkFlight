@@ -8,7 +8,7 @@ public class SourceCharge extends Entities
 	
 	public SourceCharge(double x, double y, double c) 
 	{
-		super(x, y, c);
+		super(x, y, c,"Source Charge");
 		positionX = x;
 		positionY = y;
 		charge = c;

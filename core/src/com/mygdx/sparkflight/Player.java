@@ -1,6 +1,7 @@
 package com.mygdx.sparkflight;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 import com.badlogic.gdx.math.Vector2;
 
@@ -12,7 +13,7 @@ public class Player extends Entities
 	double midPointX;
 	double midPointY;
 	double fieldStrength;
-	double velocity = 0;
+	Vector velocity = new Vector(0,0);
 	final double WEIGHT = 0.045;
 	public Player(double x, double y, double c) 
 	{
@@ -31,12 +32,13 @@ public class Player extends Entities
 	/**
 	 * @param entities a arraylist of 
 	 */
-	public void findNetForce (ArrayList<Entities> entities)
+	public void find (ArrayList<Entities> entities)
 	{
-		Vector2 v = new Vector2();
+		ArrayList<Vector> vectors = new ArrayList();
 		for(int i = 0; i < entities.size();i++)
 		{
 			
 		}
+		
 	}
 }
