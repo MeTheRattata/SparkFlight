@@ -1,7 +1,6 @@
 package com.mygdx.sparkflight;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 import com.badlogic.gdx.math.Vector2;
 
@@ -13,8 +12,9 @@ public class Player extends Entities
 	double midPointX;
 	double midPointY;
 	double fieldStrength;
-	Vector velocity = new Vector(0,0);
-	final double WEIGHT = 0.045;
+	Vector2 velocity = new Vector2(0,0);
+	final double MASS = 0.045;
+	final long K = 9_000_000_000L;
 	public Player(double x, double y, double c) 
 	{
 		super(x, y, c,"plane");
@@ -25,22 +25,25 @@ public class Player extends Entities
 		midPointX = x + 85;
 		midPointY = y - 50;
 	}
-	public double getWeight ()
+	public double getMass ()
 	{
-		return WEIGHT;
+		return MASS;
 	}
 	/**
 	 * @param entities a arraylist of 
 	 */
 	public void find (ArrayList<Entities> entities)
 	{
-		ArrayList<Vector> vectors = new ArrayList();
-		Vector netForce = new Vector();
+		ArrayList<Vector2> vectors = new ArrayList<>();
+		Vector2 netForce = new Vector2();
 
 		for(int i = 0; i < entities.size();i++)
 		{
-//			vectors.add(new Vector((int)entities.get(i).getX(),(int)entities.get(i).getY()));
-			
+			double netforcex = ()
+//			vectors.add(new Vector2((float) ((entities.get(i).getX() - midPointX)),(float) (entities.get(i).getY() - midPointY)));
+//			netForce.add(vectors.get(i));
 		}
+		velocity.add(netForce);
+		
 	}
 }
