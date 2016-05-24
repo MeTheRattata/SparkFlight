@@ -45,6 +45,10 @@ public class Entities
 	{
 		return charge;
 	}
+	public void updateImage(String newName)
+	{
+		image = new Texture(newName + ".png");
+	}
 	/**
 	 * @return texture
 	 */

@@ -35,10 +35,12 @@ public class Player extends Entities
 	public void find (ArrayList<Entities> entities)
 	{
 		ArrayList<Vector> vectors = new ArrayList();
+		Vector netForce = new Vector();
+
 		for(int i = 0; i < entities.size();i++)
 		{
+//			vectors.add(new Vector((int)entities.get(i).getX(),(int)entities.get(i).getY()));
 			
 		}
-		
 	}
 }
