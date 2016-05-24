@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Camera;
@@ -56,13 +57,20 @@ public class SparkFlight extends ApplicationAdapter {
 		batch.begin();
 		
 		batch.draw(planeImage, plane.x, plane.y, plane.width, plane.height);
+		for(int i = 0; i < entities.size(); i++)
+			batch.draw(entities.get(i).getTexture(), (float) entities.get(i).getX(), (float) entities.get(i).getY());
+		
 		batch.end();
 		
-		if(Gdx.input.isTouched()) {
-		      Vector3 touchPos = new Vector3();
-		      touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-		      camera.unproject(touchPos);
-		      // Spawn a source charge
+		if(Gdx.input.isTouched(Buttons.LEFT)) {
+		      Vector2 touchPos = new Vector2();
+		      touchPos.set(Gdx.input.getX(), Gdx.input.getY());
+		      entities.add(new SourceCharge(Gdx.input.getX() - 65, 480 - Gdx.input.getY() - 65, 1));
+		   }
+		else if(Gdx.input.isTouched(Buttons.RIGHT)) {
+		      Vector2 touchPos = new Vector2();
+		      touchPos.set(Gdx.input.getX(), Gdx.input.getY());
+		      entities.add(new SourceCharge(Gdx.input.getX() - 65, 480 - Gdx.input.getY() - 65, -1));
 		   }
 	}
 	
