@@ -62,12 +62,12 @@ public class SparkFlight extends ApplicationAdapter {
 		
 		batch.end();
 		
-		if(Gdx.input.isTouched(Buttons.LEFT)) {
+		if(Gdx.input.isButtonPressed(Buttons.LEFT)) {
 		      Vector2 touchPos = new Vector2();
 		      touchPos.set(Gdx.input.getX(), Gdx.input.getY());
 		      entities.add(new SourceCharge(Gdx.input.getX() - 65, 480 - Gdx.input.getY() - 65, 1));
 		   }
-		else if(Gdx.input.isTouched(Buttons.RIGHT)) {
+		else if(Gdx.input.isButtonPressed(Buttons.RIGHT)) {
 		      Vector2 touchPos = new Vector2();
 		      touchPos.set(Gdx.input.getX(), Gdx.input.getY());
 		      entities.add(new SourceCharge(Gdx.input.getX() - 65, 480 - Gdx.input.getY() - 65, -1));
