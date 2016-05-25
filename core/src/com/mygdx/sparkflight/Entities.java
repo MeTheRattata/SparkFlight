@@ -56,4 +56,12 @@ public class Entities
 	{
 		return image;
 	}
+	public void setX(double x)
+	{
+		positionX = x;
+	}
+	public void setY(double y)
+	{
+		positionY = y;
+	}
 }
