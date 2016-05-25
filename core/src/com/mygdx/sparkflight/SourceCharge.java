@@ -8,9 +8,11 @@ public class SourceCharge extends Entities
 	
 	public SourceCharge(double x, double y, double c) 
 	{
-		super(x, y, c, c > 0 ? "positive" : "negative");
+		super(x, y, c, "positive");
 		positionX = x;
 		positionY = y;
 		charge = c;
+		if(c < 0)
+			updateImage("negative");
 	}
 }

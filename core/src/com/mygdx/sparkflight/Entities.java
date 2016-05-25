@@ -23,6 +23,7 @@ public class Entities
 		positionY = y;
 		charge = c;
 		image = new Texture(name + ".png");
+		System.out.println(c);
 	}
 	/**
 	 * @return X
@@ -48,6 +49,7 @@ public class Entities
 	public void updateImage(String newName)
 	{
 		image = new Texture(newName + ".png");
+		System.out.println(newName);
 	}
 	/**
 	 * @return texture
