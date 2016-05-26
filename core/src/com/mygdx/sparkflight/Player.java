@@ -56,13 +56,20 @@ public class Player extends Entities
 	{
 		
 		positionX = (velocity.x + positionX);
-		System.out.println("New X: " + positionX);
+		if(positionX < 0)
+			positionX = 0;
+		else if(positionX > 600)
+			positionX = 500;
 		this.setX(positionX);
+		
 	}
 	private void findNewY ()
 	{
 		positionY = (velocity.y + positionY);
-		System.out.println("New Y: " + positionY);
+		if(positionY < 0)
+			positionY = 100;
+		else if(positionY > 480)
+			positionY = 480;
 		this.setY(positionY);
 	}
 }

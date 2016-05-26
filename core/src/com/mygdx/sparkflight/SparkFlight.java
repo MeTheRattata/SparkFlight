@@ -25,7 +25,7 @@ public class SparkFlight extends ApplicationAdapter {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 600, 480);
 		
-		plane = new Player(300,240,1,"plane");
+		plane = new Player(300,240,0.0000000000000000009,"plane");
 		
 		planeImage = new Texture("plane.png");
 //		plane = new Rectangle();
@@ -48,6 +48,8 @@ public class SparkFlight extends ApplicationAdapter {
 		batch.begin();
 		
 		batch.draw(plane.getTexture(), (float)plane.getX(), (float)plane.getY(),(float)plane.getTexture().getWidth(), (float)plane.getTexture().getHeight());
+		System.out.println(plane.getX());
+		System.out.println(plane.getY());
 		for(int i = 0; i < entities.size(); i++)
 			batch.draw(entities.get(i).getTexture(), (float) entities.get(i).getX(), (float) entities.get(i).getY(), 65, 65);
 		
@@ -64,7 +66,6 @@ public class SparkFlight extends ApplicationAdapter {
 		      entities.add(new SourceCharge(Gdx.input.getX() - 33, 480 - Gdx.input.getY() - 33, -1));
 		   }
 		//test of player motion
-		System.out.println("THIS IS A TEST");
 		plane.findNewVecolity(entities);
 	}
 	
