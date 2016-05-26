@@ -49,19 +49,19 @@ public class SparkFlight extends ApplicationAdapter {
 		
 		batch.draw(plane.getTexture(), (float)plane.getX(), (float)plane.getY(),(float)plane.getTexture().getWidth(), (float)plane.getTexture().getHeight());
 		for(int i = 0; i < entities.size(); i++)
-			batch.draw(entities.get(i).getTexture(), (float) entities.get(i).getX(), (float) entities.get(i).getY());
+			batch.draw(entities.get(i).getTexture(), (float) entities.get(i).getX(), (float) entities.get(i).getY(), 65, 65);
 		
 		batch.end();
 		
 		if(Gdx.input.isButtonPressed(Buttons.LEFT)) {
 		      Vector2 touchPos = new Vector2();
 		      touchPos.set(Gdx.input.getX(), Gdx.input.getY());
-		      entities.add(new SourceCharge(Gdx.input.getX() - 65, 480 - Gdx.input.getY() - 65, 1));
+		      entities.add(new SourceCharge(Gdx.input.getX() - 33, 480 - Gdx.input.getY() - 33, 1));
 		   }
 		else if(Gdx.input.isButtonPressed(Buttons.RIGHT)) {
 		      Vector2 touchPos = new Vector2();
 		      touchPos.set(Gdx.input.getX(), Gdx.input.getY());
-		      entities.add(new SourceCharge(Gdx.input.getX() - 65, 480 - Gdx.input.getY() - 65, -1));
+		      entities.add(new SourceCharge(Gdx.input.getX() - 33, 480 - Gdx.input.getY() - 33, -1));
 		   }
 		//test of player motion
 		System.out.println("THIS IS A TEST");
