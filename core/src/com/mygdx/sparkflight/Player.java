@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class Player extends Entities 
+public class Player extends Entity 
 {
 	double positionX;
 	double positionY;
@@ -32,7 +32,7 @@ public class Player extends Entities
 	/**
 	 * @param entities a arraylist of 
 	 */
-	public void findNewVecolity (ArrayList<Entities> entities)
+	public void findNewVelocity (ArrayList<Entity> entities)
 	{
 		ArrayList<Vector2> vectors = new ArrayList<>();
 		Vector2 netForce = new Vector2();

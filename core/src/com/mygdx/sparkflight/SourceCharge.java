@@ -1,6 +1,6 @@
 package com.mygdx.sparkflight;
 
-public class SourceCharge extends Entities 
+public class SourceCharge extends Entity 
 {
 	double positionX;
 	double positionY;
