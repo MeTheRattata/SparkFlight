@@ -2,7 +2,7 @@ package com.mygdx.sparkflight;
 
 import com.badlogic.gdx.graphics.Texture;
 
-public class Entities 
+public class Entity 
 {
 	double positionX;
 	double positionY;
@@ -17,7 +17,7 @@ public class Entities
 	 * @param c creates the objects charge
 	 * @param name used to create the object's texture
 	 */
-	public Entities (double x, double y, double c, String name)
+	public Entity (double x, double y, double c, String name)
 	{
 		positionX = x;
 		positionY = y;

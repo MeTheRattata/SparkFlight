@@ -17,7 +17,7 @@ public class SparkFlight extends ApplicationAdapter {
 	private OrthographicCamera camera;
 //	private Rectangle plane;
 	private Texture planeImage;
-	private ArrayList<Entities> entities = new ArrayList<Entities>();
+	private ArrayList<Entity> entities = new ArrayList<Entity>();
 	private Player plane;
 	@Override
 	public void create () 
@@ -74,7 +74,7 @@ public class SparkFlight extends ApplicationAdapter {
 		
 		//test of player motion
 		System.out.println("THIS IS A TEST");
-		plane.findNewVecolity(entities);
+		plane.findNewVelocity(entities);
 	}
 	
 	public void dispose()
