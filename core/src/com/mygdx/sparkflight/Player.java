@@ -54,10 +54,15 @@ public class Player extends Entities
 	}
 	private void findNewX ()
 	{
+		
 		positionX = (velocity.x + positionX);
+		System.out.println("New X: " + positionX);
+		this.setX(positionX);
 	}
 	private void findNewY ()
 	{
 		positionY = (velocity.y + positionY);
+		System.out.println("New Y: " + positionY);
+		this.setY(positionY);
 	}
 }

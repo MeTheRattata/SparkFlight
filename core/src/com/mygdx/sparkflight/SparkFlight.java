@@ -25,7 +25,7 @@ public class SparkFlight extends ApplicationAdapter {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 600, 480);
 		
-		plane = new Player(300,240,100,"plane");
+		plane = new Player(300,240,1,"plane");
 		
 		planeImage = new Texture("plane.png");
 //		plane = new Rectangle();
