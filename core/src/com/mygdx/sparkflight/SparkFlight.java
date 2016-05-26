@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -33,6 +34,24 @@ public class SparkFlight extends ApplicationAdapter {
 //		plane.y = 240;
 //		plane.height = 100;
 //		plane.width = 170;
+		
+		Gdx.input.setInputProcessor(new InputAdapter () {
+			   public boolean touchUp (int x, int y, int pointer, int button) {
+				   if(button == Buttons.LEFT) {
+					      Vector2 touchPos = new Vector2();
+					      touchPos.set(Gdx.input.getX(), Gdx.input.getY());
+					      entities.add(new SourceCharge(Gdx.input.getX() - 33, 480 - Gdx.input.getY() - 33, 1));
+					      return true;
+					}
+					else if(button == Buttons.RIGHT) {
+					      Vector2 touchPos = new Vector2();
+					      touchPos.set(Gdx.input.getX(), Gdx.input.getY());
+					      entities.add(new SourceCharge(Gdx.input.getX() - 33, 480 - Gdx.input.getY() - 33, -1));
+					      return true;
+					}
+					return false;
+			   }
+			});
 	}
 
 	@Override
@@ -53,16 +72,6 @@ public class SparkFlight extends ApplicationAdapter {
 		
 		batch.end();
 		
-		if(Gdx.input.isButtonPressed(Buttons.LEFT)) {
-		      Vector2 touchPos = new Vector2();
-		      touchPos.set(Gdx.input.getX(), Gdx.input.getY());
-		      entities.add(new SourceCharge(Gdx.input.getX() - 33, 480 - Gdx.input.getY() - 33, 1));
-		   }
-		else if(Gdx.input.isButtonPressed(Buttons.RIGHT)) {
-		      Vector2 touchPos = new Vector2();
-		      touchPos.set(Gdx.input.getX(), Gdx.input.getY());
-		      entities.add(new SourceCharge(Gdx.input.getX() - 33, 480 - Gdx.input.getY() - 33, -1));
-		   }
 		//test of player motion
 		System.out.println("THIS IS A TEST");
 		plane.findNewVecolity(entities);
