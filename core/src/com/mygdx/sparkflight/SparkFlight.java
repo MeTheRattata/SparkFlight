@@ -75,12 +75,8 @@ public class SparkFlight extends ApplicationAdapter {
 		batch.end();
 		
 		//test of player motion
-<<<<<<< HEAD
-		plane.findNewVecolity(entities);
-=======
 		System.out.println("THIS IS A TEST");
 		plane.findNewVelocity(entities);
->>>>>>> d3564da8ad609f332a79eb7f23f10ebf2a43288b
 	}
 	
 	public void dispose()
