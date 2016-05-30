@@ -26,14 +26,9 @@ public class SparkFlight extends ApplicationAdapter {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 600, 480);
 		
-		plane = new Player(300,240,0.0000000000000000009,"plane");
+		plane = new Player(300,240,0.000000009,"plane");
 		
 		planeImage = new Texture("plane.png");
-//		plane = new Rectangle();
-//		plane.x = 300;
-//		plane.y = 240;
-//		plane.height = 100;
-//		plane.width = 170;
 		
 		Gdx.input.setInputProcessor(new InputAdapter () {
 			   public boolean touchUp (int x, int y, int pointer, int button) {
@@ -75,8 +70,8 @@ public class SparkFlight extends ApplicationAdapter {
 		batch.end();
 		
 		//test of player motion
-		System.out.println("THIS IS A TEST");
 		plane.findNewVelocity(entities);
+
 	}
 	
 	public void dispose()

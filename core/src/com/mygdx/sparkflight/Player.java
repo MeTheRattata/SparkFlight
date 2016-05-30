@@ -2,6 +2,7 @@ package com.mygdx.sparkflight;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Player extends Entity 
@@ -15,6 +16,8 @@ public class Player extends Entity
 	Vector2 velocity = new Vector2(0,0);
 	final double MASS = 0.045;
 	final long K = 9_000_000_000L;
+	Rectangle hitBox;
+	
 	public Player(double x, double y, double c, String name) 
 	{
 		super(x, y, c,name);
@@ -24,6 +27,11 @@ public class Player extends Entity
 		//Size of plane 170 by 100
 		midPointX = x + 85;
 		midPointY = y - 50;
+		hitBox = new Rectangle();
+		hitBox.x = (float) x;
+		hitBox.y = (float) y;
+		hitBox.height = 100;
+		hitBox.width = 170;
 	}
 	public double getMass ()
 	{
