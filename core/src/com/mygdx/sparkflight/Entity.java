@@ -51,6 +51,17 @@ public class Entity
 		image = new Texture(newName + ".png");
 		System.out.println(newName);
 	}
+	public double getMidPointX ()
+	{
+		return positionX + (image.getWidth()/2);
+	}
+	/**
+	 * @return Y
+	 */
+	public double getMidPointY ()
+	{
+		return positionY + (image.getHeight()/2);
+	}
 	/**
 	 * @return texture
 	 */
@@ -65,5 +76,15 @@ public class Entity
 	public void setY(double y)
 	{
 		positionY = y;
+	}
+	
+	public double getWidth()
+	{
+		return image.getWidth();
+	}
+	
+	public double getHeight()
+	{
+		return image.getHeight();
 	}
 }

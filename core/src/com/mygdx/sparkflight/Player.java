@@ -50,18 +50,28 @@ public class Player extends Entity
 		for(int i = 0; i < entities.size();i++)
 		{
 			//Applies the formula (k * q * Q) / d^2 in order to find the force from each source charge
-			if(entities.get(i).getX() - midPointX > 0 && entities.get(i).getCharge() > 0)
+			if(entities.get(i).getMidPointX() - midPointX > 0 && entities.get(i).getCharge() > 0)
 			{
 				directionX = -1;
 			}
-			if(entities.get(i).getY() - midPointY > 0 && entities.get(i).getCharge() > 0)
+			if(entities.get(i).getMidPointY() - midPointY > 0 && entities.get(i).getCharge() > 0)
 			{
 				directionY = -1;
 			}
-			double netforcex = (K * fieldStrength * entities.get(i).getCharge())/(Math.pow((entities.get(i).getX() - midPointX), 2)*directionX);
-			double netforcey = (K * fieldStrength * entities.get(i).getCharge())/(Math.pow((entities.get(i).getY() - midPointY), 2)*directionY);
-			vectors.add(new Vector2((float)netforcex,(float)netforcey));
-			netForce.add(vectors.get(i));
+			if(entities.get(i).getMidPointX() - midPointX < 0 && entities.get(i).getCharge() < 0)
+			{
+				directionX = -1;
+			}
+			if(entities.get(i).getMidPointY() - midPointY < 0 && entities.get(i).getCharge() < 0)
+			{
+				directionY = -1;
+			}
+			double diagonalDistance = Math.sqrt(Math.pow(entities.get(i).getMidPointX() - midPointX, 2) + Math.pow(entities.get(i).getMidPointY() - midPointY, 2));
+			double diagonalForce = Math.abs(K * fieldStrength * entities.get(i).getCharge()) / diagonalDistance;
+			System.out.println("charge midpoint x: " + entities.get(i).getMidPointX());
+			System.out.println("charge midpoint y: " + entities.get(i).getMidPointY());
+			double angle = Math.atan2(entities.get(i).getMidPointY() - midPointY, entities.get(i).getMidPointX() - midPointX);
+			System.out.println("Angle: " + Math.toDegrees(angle));
 			
 			directionX = 1;
 			directionY = 1;
@@ -69,7 +79,7 @@ public class Player extends Entity
 		netForce.set((float)(netForce.x /MASS), (float)(netForce.y/MASS));
 //		System.out.println(netForce.x + " " + netForce.y);
 		velocity.add(netForce);
-		System.out.println(velocity.x + " " + velocity.y);
+//		System.out.println(velocity.x + " " + velocity.y);
 		findNewX();
 		findNewY();
 	}

@@ -26,7 +26,7 @@ public class SparkFlight extends ApplicationAdapter {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 600, 480);
 		
-		plane = new Player(300,240,0.00000000009,"plane");
+		plane = new Player(150,150,0.00000000009,"positive");
 		
 		planeImage = new Texture("plane.png");
 		
@@ -61,11 +61,11 @@ public class SparkFlight extends ApplicationAdapter {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		
-		batch.draw(plane.getTexture(), (float)plane.getX(), (float)plane.getY(),(float)plane.getTexture().getWidth(), (float)plane.getTexture().getHeight());
+		batch.draw(plane.getTexture(), (float)plane.getX(), (float)plane.getY(),(float)plane.getWidth(), (float)plane.getHeight());
 		System.out.println(plane.getX());
 		System.out.println(plane.getY());
 		for(int i = 0; i < entities.size(); i++)
-			batch.draw(entities.get(i).getTexture(), (float) entities.get(i).getX(), (float) entities.get(i).getY(), 65, 65);
+			batch.draw(entities.get(i).getTexture(), (float) entities.get(i).getX(), (float) entities.get(i).getY(), (float) entities.get(i).getWidth(), (float) entities.get(i).getHeight());
 		
 		batch.end();
 		
