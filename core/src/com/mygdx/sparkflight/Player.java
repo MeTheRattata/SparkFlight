@@ -44,19 +44,32 @@ public class Player extends Entity
 	{
 		ArrayList<Vector2> vectors = new ArrayList<>();
 		Vector2 netForce = new Vector2();
-
+		//Direction determines which way the force pushes the plane
+		int directionX = 1;
+		int directionY = 1;
 		for(int i = 0; i < entities.size();i++)
 		{
 			//Applies the formula (k * q * Q) / d^2 in order to find the force from each source charge
-			double netforcex = (K * fieldStrength * entities.get(i).getCharge())/(Math.pow((entities.get(i).getX() - midPointX), 2));
-			double netforcey = (K * fieldStrength * entities.get(i).getCharge())/(Math.pow((entities.get(i).getY() - midPointY), 2));
+			if(entities.get(i).getX() - midPointX > 0 && entities.get(i).getCharge() > 0)
+			{
+				directionX = -1;
+			}
+			if(entities.get(i).getY() - midPointY > 0 && entities.get(i).getCharge() > 0)
+			{
+				directionY = -1;
+			}
+			double netforcex = (K * fieldStrength * entities.get(i).getCharge())/(Math.pow((entities.get(i).getX() - midPointX), 2)*directionX);
+			double netforcey = (K * fieldStrength * entities.get(i).getCharge())/(Math.pow((entities.get(i).getY() - midPointY), 2)*directionY);
 			vectors.add(new Vector2((float)netforcex,(float)netforcey));
 			netForce.add(vectors.get(i));
 			
+			directionX = 1;
+			directionY = 1;
 		}
 		netForce.set((float)(netForce.x /MASS), (float)(netForce.y/MASS));
-		System.out.println(netForce.x + " " + netForce.y);
+//		System.out.println(netForce.x + " " + netForce.y);
 		velocity.add(netForce);
+		System.out.println(velocity.x + " " + velocity.y);
 		findNewX();
 		findNewY();
 	}
