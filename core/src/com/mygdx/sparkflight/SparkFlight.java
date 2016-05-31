@@ -19,14 +19,19 @@ public class SparkFlight extends ApplicationAdapter {
 	private Texture planeImage;
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
 	private Player plane;
+	private int width;
+	private int height;
+	
 	@Override
 	public void create () 
 	{
+		width = 800;
+		height = 600;
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 600, 480);
+		camera.setToOrtho(false, width, height);
 		
-		plane = new Player(300,240,0.00000000009,"plane");
+		plane = new Player(300,240,0.000000009,"plane");
 		
 		planeImage = new Texture("plane.png");
 		
@@ -35,13 +40,13 @@ public class SparkFlight extends ApplicationAdapter {
 				   if(button == Buttons.LEFT) {
 					      Vector2 touchPos = new Vector2();
 					      touchPos.set(Gdx.input.getX(), Gdx.input.getY());
-					      entities.add(new SourceCharge(Gdx.input.getX() - 33, 480 - Gdx.input.getY() - 33, 1));
+					      entities.add(new SourceCharge(Gdx.input.getX() - 33, height - Gdx.input.getY() - 33, 1));
 					      return true;
 					}
 					else if(button == Buttons.RIGHT) {
 					      Vector2 touchPos = new Vector2();
 					      touchPos.set(Gdx.input.getX(), Gdx.input.getY());
-					      entities.add(new SourceCharge(Gdx.input.getX() - 33, 480 - Gdx.input.getY() - 33, -1));
+					      entities.add(new SourceCharge(Gdx.input.getX() - 33, height - Gdx.input.getY() - 33, -1));
 					      return true;
 					}
 					return false;
