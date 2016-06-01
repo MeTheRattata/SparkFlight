@@ -31,7 +31,7 @@ public class SparkFlight extends ApplicationAdapter {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, width, height);
 		
-		plane = new Player(150,150,0.000000009,"positive");
+		plane = new Player(150,150,0.000000009,"plane");
 		
 		Gdx.input.setInputProcessor(new InputAdapter () {
 			   public boolean touchUp (int x, int y, int pointer, int button) {
@@ -39,13 +39,15 @@ public class SparkFlight extends ApplicationAdapter {
 					      Vector2 touchPos = new Vector2();
 					      touchPos.set(Gdx.input.getX(), Gdx.input.getY());
 					      System.out.println("Mouse x: " + Gdx.input.getX());
-					      syso
+					      System.out.println("Mouse y: " + Gdx.input.getY());
 					      entities.add(new SourceCharge(Gdx.input.getX() - 65, height - Gdx.input.getY() - 65, 1));
 					      return true;
 					}
 					else if(button == Buttons.RIGHT) {
 					      Vector2 touchPos = new Vector2();
 					      touchPos.set(Gdx.input.getX(), Gdx.input.getY());
+					      System.out.println("Mouse x: " + Gdx.input.getX());
+					      System.out.println("Mouse y: " + Gdx.input.getY());
 					      entities.add(new SourceCharge(Gdx.input.getX() - 65, height - Gdx.input.getY() - 65, -1));
 					      return true;
 					}
@@ -67,8 +69,8 @@ public class SparkFlight extends ApplicationAdapter {
 		batch.begin();
 		
 		batch.draw(plane.getTexture(), (float)plane.getX(), (float)plane.getY(),(float)plane.getWidth(), (float)plane.getHeight());
-		System.out.println(plane.getX());
-		System.out.println(plane.getY());
+//		System.out.println("Plane position x: " + plane.getMidPointX());
+//		System.out.println("Plane position y: " + plane.getMidPointY());
 		for(int i = 0; i < entities.size(); i++)
 			batch.draw(entities.get(i).getTexture(), (float) entities.get(i).getX(), (float) entities.get(i).getY(), (float) entities.get(i).getWidth(), (float) entities.get(i).getHeight());
 		

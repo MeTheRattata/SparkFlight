@@ -23,7 +23,6 @@ public class Entity
 		positionY = y;
 		charge = c;
 		image = new Texture(name + ".png");
-		System.out.println(c);
 	}
 	/**
 	 * @return X
