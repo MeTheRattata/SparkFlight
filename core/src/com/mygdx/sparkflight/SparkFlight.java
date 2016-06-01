@@ -19,29 +19,34 @@ public class SparkFlight extends ApplicationAdapter {
 	private Texture planeImage;
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
 	private Player plane;
+	private int width;
+	private int height;
+	
 	@Override
 	public void create () 
 	{
+		width = 800;
+		height = 600;
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 600, 480);
+		camera.setToOrtho(false, width, height);
 		
-		plane = new Player(150,150,0.00000000009,"positive");
-		
-		planeImage = new Texture("plane.png");
+		plane = new Player(150,150,0.000000009,"positive");
 		
 		Gdx.input.setInputProcessor(new InputAdapter () {
 			   public boolean touchUp (int x, int y, int pointer, int button) {
 				   if(button == Buttons.LEFT) {
 					      Vector2 touchPos = new Vector2();
 					      touchPos.set(Gdx.input.getX(), Gdx.input.getY());
-					      entities.add(new SourceCharge(Gdx.input.getX() - 33, 480 - Gdx.input.getY() - 33, 1));
+					      System.out.println("Mouse x: " + Gdx.input.getX());
+					      syso
+					      entities.add(new SourceCharge(Gdx.input.getX() - 65, height - Gdx.input.getY() - 65, 1));
 					      return true;
 					}
 					else if(button == Buttons.RIGHT) {
 					      Vector2 touchPos = new Vector2();
 					      touchPos.set(Gdx.input.getX(), Gdx.input.getY());
-					      entities.add(new SourceCharge(Gdx.input.getX() - 33, 480 - Gdx.input.getY() - 33, -1));
+					      entities.add(new SourceCharge(Gdx.input.getX() - 65, height - Gdx.input.getY() - 65, -1));
 					      return true;
 					}
 					return false;
@@ -76,7 +81,6 @@ public class SparkFlight extends ApplicationAdapter {
 	
 	public void dispose()
 	{	
-		planeImage.dispose();
 		batch.dispose();
 	}
 }
