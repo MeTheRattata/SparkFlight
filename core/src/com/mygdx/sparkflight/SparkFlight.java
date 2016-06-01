@@ -39,7 +39,7 @@ public class SparkFlight extends ApplicationAdapter {
 					      Vector2 touchPos = new Vector2();
 					      touchPos.set(Gdx.input.getX(), Gdx.input.getY());
 					      System.out.println("Mouse x: " + Gdx.input.getX());
-					      syso
+					      System.out.println();
 					      entities.add(new SourceCharge(Gdx.input.getX() - 65, height - Gdx.input.getY() - 65, 1));
 					      return true;
 					}
