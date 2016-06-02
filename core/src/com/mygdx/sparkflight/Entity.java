@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Entity 
 {
-	double positionX;
-	double positionY;
+	float positionX;
+	float positionY;
 	double charge;
 	Texture image;
 	
@@ -17,7 +17,7 @@ public class Entity
 	 * @param c creates the objects charge
 	 * @param name used to create the object's texture
 	 */
-	public Entity (double x, double y, double c, String name)
+	public Entity (float x, float y, double c, String name)
 	{
 		positionX = x;
 		positionY = y;
@@ -68,11 +68,11 @@ public class Entity
 	{
 		return image;
 	}
-	public void setX(double x)
+	public void setX(float x)
 	{
 		positionX = x;
 	}
-	public void setY(double y)
+	public void setY(float y)
 	{
 		positionY = y;
 	}

@@ -16,7 +16,6 @@ public class SparkFlight extends ApplicationAdapter {
 	private SpriteBatch batch;
 	private OrthographicCamera camera;
 //	private Rectangle plane;
-	private Texture planeImage;
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
 	private Player plane;
 	private int width;
@@ -31,7 +30,7 @@ public class SparkFlight extends ApplicationAdapter {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, width, height);
 		
-		plane = new Player(150,150,0.000000009,"plane");
+		plane = new Player(150,150,0.000000009,"positive");
 		
 		Gdx.input.setInputProcessor(new InputAdapter () {
 			   public boolean touchUp (int x, int y, int pointer, int button) {
