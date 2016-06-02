@@ -6,7 +6,7 @@ public class SourceCharge extends Entity
 	double positionY;
 	double charge;
 	
-	public SourceCharge(double x, double y, double c) 
+	public SourceCharge(float x, float y, double c) 
 	{
 		super(x, y, c, "positive");
 		positionX = x;

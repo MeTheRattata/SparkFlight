@@ -7,8 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Player extends Entity 
 {
-	double positionX;
-	double positionY;
 	//Cordinates for the center of the plane. 
 	double midPointX;
 	double midPointY;
@@ -18,20 +16,13 @@ public class Player extends Entity
 	final long K = 9_000_000_000L;
 	Rectangle hitBox;
 	
-	public Player(double x, double y, double c, String name) 
+	public Player(float x, float y, double c, String name) 
 	{
 		super(x, y, c,name);
-		positionX = x;
-		positionY = y;
-		fieldStrength = c;
 		//Size of plane 170 by 100
-		midPointX = x + 85;
-		midPointY = y - 50;
-		hitBox = new Rectangle();
-		hitBox.x = (float) x;
-		hitBox.y = (float) y;
-		hitBox.height = 100;
-		hitBox.width = 170;
+		midPointX = x + image.getWidth()/2;
+		midPointY = y + image.getHeight()/2;
+		hitBox = new Rectangle(x, y, image.getWidth(), image.getHeight());
 	}
 	public double getMass ()
 	{
@@ -42,44 +33,21 @@ public class Player extends Entity
 	 */
 	public void findNewVelocity (ArrayList<Entity> entities)
 	{
-		ArrayList<Vector2> vectors = new ArrayList<>();
-		Vector2 netForce = new Vector2();
-		//Direction determines which way the force pushes the plane
-		int directionX = 1;
-		int directionY = 1;
+		Vector2 displacement = new Vector2();
 		for(int i = 0; i < entities.size();i++)
 		{
-			//Applies the formula (k * q * Q) / d^2 in order to find the force from each source charge
-			if(entities.get(i).getMidPointX() - midPointX > 0 && entities.get(i).getCharge() > 0)
-			{
-				directionX = -1;
-			}
-			if(entities.get(i).getMidPointY() - midPointY > 0 && entities.get(i).getCharge() > 0)
-			{
-				directionY = -1;
-			}
-			if(entities.get(i).getMidPointX() - midPointX < 0 && entities.get(i).getCharge() < 0)
-			{
-				directionX = -1;
-			}
-			if(entities.get(i).getMidPointY() - midPointY < 0 && entities.get(i).getCharge() < 0)
-			{
-				directionY = -1;
-			}
-			double diagonalDistance = Math.sqrt(Math.pow(entities.get(i).getMidPointX() - midPointX, 2) + Math.pow(entities.get(i).getMidPointY() - midPointY, 2));
-			double diagonalForce = Math.abs(K * fieldStrength * entities.get(i).getCharge()) / diagonalDistance;
-			System.out.println("charge midpoint x: " + entities.get(i).getMidPointX());
-			System.out.println("charge midpoint y: " + entities.get(i).getMidPointY());
-			double angle = Math.atan2(entities.get(i).getMidPointY() - midPointY, entities.get(i).getMidPointX() - midPointX);
-			System.out.println("Angle: " + Math.toDegrees(angle));
-			
-			directionX = 1;
-			directionY = 1;
+			displacement.x = entities.get(i).positionX - positionX;
+			displacement.y = entities.get(i).positionX - positionX;
+			float d2 = displacement.len2(); // find square distance
+			displacement.nor() // make the vector length 1
+			//scale by k * q * Q / d ^ 2
+			.scl((float)(K * entities.get(i).charge * charge) / d2);
 		}
-		netForce.set((float)(netForce.x /MASS), (float)(netForce.y/MASS));
+		
+		
 //		System.out.println(netForce.x + " " + netForce.y);
-		velocity.add(netForce);
-//		System.out.println(velocity.x + " " + velocity.y);
+		velocity.add(displacement);
+//		System.out.println("X velocity: " + velocity.x + "\nY velocity: " + velocity.y);
 		findNewX();
 		findNewY();
 	}
@@ -103,4 +71,5 @@ public class Player extends Entity
 			positionY = 480;
 		this.setY(positionY);
 	}
+	
 }
