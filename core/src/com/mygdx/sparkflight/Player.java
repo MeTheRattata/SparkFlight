@@ -37,7 +37,7 @@ public class Player extends Entity
 		for(int i = 0; i < entities.size();i++)
 		{
 			displacement.x = entities.get(i).positionX - positionX;
-			displacement.y = entities.get(i).positionX - positionX;
+			displacement.y = entities.get(i).positionY - positionY;
 			float d2 = displacement.len2(); // find square distance
 			displacement.nor() // make the vector length 1
 			//scale by k * q * Q / d ^ 2
@@ -57,7 +57,7 @@ public class Player extends Entity
 		if(positionX < 0)
 			positionX = 0;
 		else if(positionX > 600)
-			positionX = 500;
+			positionX = 600;
 		this.setX(positionX);
 		
 	}
@@ -65,7 +65,7 @@ public class Player extends Entity
 	{
 		positionY = (velocity.y + positionY);
 		if(positionY < 0)
-			positionY = 100;
+			positionY = 0;
 		else if(positionY > 480)
 			positionY = 480;
 		this.setY(positionY);
