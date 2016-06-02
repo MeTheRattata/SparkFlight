@@ -6,6 +6,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -20,10 +21,17 @@ public class SparkFlight extends ApplicationAdapter {
 	private Player plane;
 	private int width;
 	private int height;
+	public static AssetManager assets;
 	
 	@Override
 	public void create () 
 	{
+		assets = new AssetManager();
+		assets.load("plane.png", Texture.class);
+		assets.load("positive.png", Texture.class);
+		assets.load("negative.png", Texture.class);
+		assets.finishLoading();
+		
 		width = 800;
 		height = 600;
 		batch = new SpriteBatch();
@@ -66,12 +74,18 @@ public class SparkFlight extends ApplicationAdapter {
 		//Makes batch only show what is inside the camera's FOV
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
-		batch.draw(plane.getTexture(), plane.getX(), plane.getY(), plane.getWidth(), plane.getHeight());
+		batch.draw(assets.get("plane.png", Texture.class), plane.getX(), plane.getY(), plane.getWidth(), plane.getHeight());
 //		System.out.println("Plane position x: " + plane.getMidPointX());
 //		System.out.println("Plane position y: " + plane.getMidPointY());
 		for(int i = 0; i < entities.size(); i++)
-			batch.draw(entities.get(i).getTexture(), (float) entities.get(i).getX(), (float) entities.get(i).getY(), (float) entities.get(i).getWidth(), (float) entities.get(i).getHeight());
-		
+		{
+			if(entities.get(i).getCharge() > 0)
+				batch.draw(assets.get("positive.png", Texture.class), (float) entities.get(i).getX(), 
+				(float) entities.get(i).getY(), (float) entities.get(i).getWidth(), (float) entities.get(i).getHeight());
+			else if(entities.get(i).getCharge() < 0)
+				batch.draw(assets.get("negative.png", Texture.class), (float) entities.get(i).getX(), 
+				(float) entities.get(i).getY(), (float) entities.get(i).getWidth(), (float) entities.get(i).getHeight());
+		}
 		batch.end();
 		
 		//test of player motion
@@ -82,5 +96,6 @@ public class SparkFlight extends ApplicationAdapter {
 	public void dispose()
 	{	
 		batch.dispose();
+		assets.dispose();
 	}
 }
