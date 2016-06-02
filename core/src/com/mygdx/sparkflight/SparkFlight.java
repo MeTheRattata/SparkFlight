@@ -66,8 +66,7 @@ public class SparkFlight extends ApplicationAdapter {
 		//Makes batch only show what is inside the camera's FOV
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
-		
-		batch.draw(plane.getTexture(), (float)plane.getX(), (float)plane.getY(),(float)plane.getWidth(), (float)plane.getHeight());
+		batch.draw(plane.getTexture(), plane.getX(), plane.getY(), plane.getWidth(), plane.getHeight());
 //		System.out.println("Plane position x: " + plane.getMidPointX());
 //		System.out.println("Plane position y: " + plane.getMidPointY());
 		for(int i = 0; i < entities.size(); i++)

@@ -27,14 +27,14 @@ public class Entity
 	/**
 	 * @return X
 	 */
-	public double getX ()
+	public float getX ()
 	{
 		return positionX;
 	}
 	/**
 	 * @return Y
 	 */
-	public double getY ()
+	public float getY ()
 	{
 		return positionY;
 	}
@@ -50,14 +50,14 @@ public class Entity
 		image = new Texture(newName + ".png");
 		System.out.println(newName);
 	}
-	public double getMidPointX ()
+	public float getMidPointX ()
 	{
 		return positionX + (image.getWidth()/2);
 	}
 	/**
 	 * @return Y
 	 */
-	public double getMidPointY ()
+	public float getMidPointY ()
 	{
 		return positionY + (image.getHeight()/2);
 	}
@@ -77,12 +77,12 @@ public class Entity
 		positionY = y;
 	}
 	
-	public double getWidth()
+	public float getWidth()
 	{
 		return image.getWidth();
 	}
 	
-	public double getHeight()
+	public float getHeight()
 	{
 		return image.getHeight();
 	}

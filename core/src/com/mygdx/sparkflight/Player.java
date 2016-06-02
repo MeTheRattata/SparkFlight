@@ -8,9 +8,8 @@ import com.badlogic.gdx.math.Vector2;
 public class Player extends Entity 
 {
 	//Cordinates for the center of the plane. 
-	double midPointX;
-	double midPointY;
-	double fieldStrength;
+	float midPointX;
+	float midPointY;
 	Vector2 velocity = new Vector2(0,0);
 	final float MASS = (float) 0.045;
 	final long K = 9_000_000_000L;
