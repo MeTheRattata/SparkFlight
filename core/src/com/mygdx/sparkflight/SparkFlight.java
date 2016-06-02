@@ -30,7 +30,7 @@ public class SparkFlight extends ApplicationAdapter {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, width, height);
 		
-		plane = new Player(150,150,0.000000009,"plane");
+		plane = new Player(150,150,0.0000000009,"plane");
 		
 		Gdx.input.setInputProcessor(new InputAdapter () {
 			   public boolean touchUp (int x, int y, int pointer, int button) {
@@ -58,7 +58,7 @@ public class SparkFlight extends ApplicationAdapter {
 	@Override
 	public void render () 
 	{
-		Gdx.gl.glClearColor(1 , 0, 0, 1);
+		Gdx.gl.glClearColor(0, 1, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		camera.update();
