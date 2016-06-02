@@ -12,7 +12,7 @@ public class Player extends Entity
 	double midPointY;
 	double fieldStrength;
 	Vector2 velocity = new Vector2(0,0);
-	final double MASS = 0.045;
+	final float MASS = (float) 0.045;
 	final long K = 9_000_000_000L;
 	Rectangle hitBox;
 	
@@ -24,7 +24,7 @@ public class Player extends Entity
 		midPointY = y + image.getHeight()/2;
 		hitBox = new Rectangle(x, y, image.getWidth(), image.getHeight());
 	}
-	public double getMass ()
+	public float getMass ()
 	{
 		return MASS;
 	}
@@ -41,13 +41,12 @@ public class Player extends Entity
 			float d2 = displacement.len2(); // find square distance
 			displacement.nor() // make the vector length 1
 			//scale by k * q * Q / d ^ 2
-			.scl((float)(K * entities.get(i).charge * charge) / d2);
+			.scl((float)-(K * entities.get(i).charge * charge) / d2);
 		}
 		
 		
-//		System.out.println(netForce.x + " " + netForce.y);
-		velocity.add(displacement);
-//		System.out.println("X velocity: " + velocity.x + "\nY velocity: " + velocity.y);
+		velocity.add(displacement.x / MASS, displacement.y / MASS);
+		System.out.println("X velocity: " + velocity.x + "\nY velocity: " + velocity.y);
 		findNewX();
 		findNewY();
 	}

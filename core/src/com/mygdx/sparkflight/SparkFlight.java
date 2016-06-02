@@ -30,7 +30,7 @@ public class SparkFlight extends ApplicationAdapter {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, width, height);
 		
-		plane = new Player(150,150,0.000000009,"positive");
+		plane = new Player(150,150,0.000000009,"plane");
 		
 		Gdx.input.setInputProcessor(new InputAdapter () {
 			   public boolean touchUp (int x, int y, int pointer, int button) {
