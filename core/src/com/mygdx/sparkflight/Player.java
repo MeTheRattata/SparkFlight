@@ -66,17 +66,20 @@ public class Player extends Entity
 			{
 				directionY = -1;
 			}
-//			System.out.println("Charge midpoint x: " + entities.get(i).getMidPointX());
-//			System.out.println("Charge midpoint y: " + entities.get(i).getMidPointY());
+			double diagonalDistance = Math.sqrt(Math.pow(entities.get(i).getMidPointX() - midPointX, 2) + Math.pow(entities.get(i).getMidPointY() - midPointY, 2));
+			double diagonalForce = Math.abs(K * fieldStrength * entities.get(i).getCharge()) / diagonalDistance;
+			System.out.println("charge midpoint x: " + entities.get(i).getMidPointX());
+			System.out.println("charge midpoint y: " + entities.get(i).getMidPointY());
+			double angle = Math.atan2(entities.get(i).getMidPointY() - midPointY, entities.get(i).getMidPointX() - midPointX);
+			System.out.println("Angle: " + Math.toDegrees(angle));
+			
 			directionX = 1;
 			directionY = 1;
-			netForce.add(new Vector2((float)(entities.get(i).getMidPointX() - midPointX), (float)(entities.get(i).getMidPointY() - midPointY)));
 		}
-		
 		netForce.set((float)(netForce.x /MASS), (float)(netForce.y/MASS));
 //		System.out.println(netForce.x + " " + netForce.y);
 		velocity.add(netForce);
-		System.out.println("X velocity: " + velocity.x + "\nY velocity: " + velocity.y);
+//		System.out.println(velocity.x + " " + velocity.y);
 		findNewX();
 		findNewY();
 	}
