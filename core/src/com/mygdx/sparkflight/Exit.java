@@ -14,7 +14,7 @@ public class Exit extends Entity
 	{
 		if(hitBox.contains(x, y))
 		{
-			System.out.println("player has reached the exit!");
+			System.out.println("Player has reached the exit!");
 		}
 	}
 }

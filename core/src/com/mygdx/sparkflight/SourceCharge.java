@@ -12,7 +12,5 @@ public class SourceCharge extends Entity
 		positionX = x;
 		positionY = y;
 		charge = c;
-		if(c < 0)
-			updateImage("negative");
 	}
 }
