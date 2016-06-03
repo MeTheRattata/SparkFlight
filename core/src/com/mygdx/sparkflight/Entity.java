@@ -33,9 +33,6 @@ public class Entity extends Actor
 	{
 		return posX + width/2;
 	}
-	/**
-	 * @return Y
-	 */
 	public float getMidPointY()
 	{
 		return posY + height/2;
@@ -45,7 +42,6 @@ public class Entity extends Actor
 		width = newWidth;
 		height = newHeight;
 	}
-	
 	public void draw()
 	{
 		SparkFlight.batch.draw(SparkFlight.assets.get(name + ".png", Texture.class), posX, posY, width, height);

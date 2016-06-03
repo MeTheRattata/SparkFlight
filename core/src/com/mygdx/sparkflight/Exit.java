@@ -1,6 +1,7 @@
 package com.mygdx.sparkflight;
 
-import java.awt.Rectangle;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 public class Exit extends Entity 
 {
@@ -8,13 +9,13 @@ public class Exit extends Entity
 	public Exit(float x, float y, double c, String name) 
 	{
 		super(x, y, c, name);
-		hitBox = new Rectangle(image.getWidth(),image.getWidth());
+		hitBox = new Rectangle(x, y, width, height);
 	}
-	public void exitContainsPlayer (float x,float y)
+	public void exitContainsPlayer (Vector2 center)
 	{
-		if(hitBox.contains(x, y))
+		if(hitBox.contains(center))
 		{
-			System.out.println("player has reached the exit!");
+			System.out.println("Player has reached the exit!");
 		}
 	}
 }

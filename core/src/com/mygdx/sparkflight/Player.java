@@ -11,7 +11,7 @@ public class Player extends Entity
 	Vector2 velocity = new Vector2(0,0);
 	final float MASS = (float) 0.045;
 	final long K = 9_000_000_000L;
-	Rectangle hitBox;
+	private Rectangle hitBox;
 	
 	public Player(float x, float y, double c, String name) 
 	{
@@ -24,46 +24,56 @@ public class Player extends Entity
 		return MASS;
 	}
 	/**
-	 * @param entities a arraylist of 
+	 * @param charges a arraylist of 
 	 */
-	public void findNewVelocity (ArrayList<Entity> entities)
+	public void findNewVelocity (ArrayList<SourceCharge> charges)
 	{
 		Vector2 displacement = new Vector2();
-		for(int i = 0; i < entities.size();i++)
+		for(int i = 0; i < charges.size();i++)
 		{
-			displacement.x = entities.get(i).posX - posX;
-			displacement.y = entities.get(i).posY - posY;
+			displacement.x = SparkFlight.entities.get(i).posX - posX;
+			displacement.y = SparkFlight.entities.get(i).posY - posY;
 			float d2 = displacement.len2(); // find square distance
 			displacement.nor() // make the vector length 1
 			//scale by k * q * Q / d ^ 2
-			.scl((float)-(K * entities.get(i).charge * charge) / d2);
+			.scl((float)-(K * charges.get(i).charge * charge) / d2);
 		}
 		
 		
 		velocity.add(displacement.x / MASS, displacement.y / MASS);
-		System.out.println("X velocity: " + velocity.x + "\nY velocity: " + velocity.y);
+//		System.out.println("X velocity: " + velocity.x + "\nY velocity: " + velocity.y);
 		findNewX();
 		findNewY();
 	}
 	private void findNewX ()
 	{
-		
 		posX = (velocity.x + posX);
 		if(posX < 0)
 			posX = 0;
 		else if(posX > 600)
 			posX = 600;
 		this.setX(posX);
-		
+		hitBox.setX(posX);		
 	}
 	private void findNewY ()
 	{
+
 		posY = (velocity.y + posY);
 		if(posY < 0)
 			posY = 0;
 		else if(posY > 480)
 			posY = 480;
 		this.setY(posY);
+		hitBox.setY(posY);
 	}
 	
+	public Rectangle getHitbox()
+	{
+		return hitBox;
+	}
+	
+	public Vector2 getCenter()
+	{
+		return new Vector2(getMidPointX(), getMidPointY());
+	}
 }

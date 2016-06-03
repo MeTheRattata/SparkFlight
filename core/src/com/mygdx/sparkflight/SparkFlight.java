@@ -7,29 +7,31 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 
 public class SparkFlight extends ApplicationAdapter {
 	public static SpriteBatch batch;
-	private OrthographicCamera camera;
-//	private Rectangle plane;
-	private ArrayList<Entity> entities = new ArrayList<Entity>();
+	public static ArrayList<SourceCharge> entities = new ArrayList<SourceCharge>();
+	public OrthographicCamera camera;
 	private Player plane;
 	private int width;
 	private int height;
 	public static AssetManager assets;
+	public Exit exit;
 	
 	@Override
 	public void create () 
 	{
 		assets = new AssetManager();
+		assets.load("exit.png", Texture.class);
 		assets.load("plane.png", Texture.class);
 		assets.load("positive.png", Texture.class);
 		assets.load("negative.png", Texture.class);
+		assets.load("exit.png", Texture.class);
 		assets.finishLoading();
 		
 		width = 800;
@@ -38,23 +40,17 @@ public class SparkFlight extends ApplicationAdapter {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, width, height);
 		
+		exit = new Exit(450, 450, 0, "exit");
 		plane = new Player(150,150,0.0000000009,"plane");
 		
+
 		Gdx.input.setInputProcessor(new InputAdapter () {
 			   public boolean touchUp (int x, int y, int pointer, int button) {
 				   if(button == Buttons.LEFT) {
-					      Vector2 touchPos = new Vector2();
-					      touchPos.set(Gdx.input.getX(), Gdx.input.getY());
-					      System.out.println("Mouse x: " + Gdx.input.getX());
-					      System.out.println("Mouse y: " + Gdx.input.getY());
 					      entities.add(new SourceCharge(Gdx.input.getX() - 65, height - Gdx.input.getY() - 65, 1));
 					      return true;
 					}
 					else if(button == Buttons.RIGHT) {
-					      Vector2 touchPos = new Vector2();
-					      touchPos.set(Gdx.input.getX(), Gdx.input.getY());
-					      System.out.println("Mouse x: " + Gdx.input.getX());
-					      System.out.println("Mouse y: " + Gdx.input.getY());
 					      entities.add(new SourceCharge(Gdx.input.getX() - 65, height - Gdx.input.getY() - 65, -1));
 					      return true;
 					}
@@ -87,11 +83,15 @@ public class SparkFlight extends ApplicationAdapter {
 				batch.draw(assets.get("negative.png", Texture.class), (float) entities.get(i).getX(), 
 				(float) entities.get(i).getY(), (float) entities.get(i).getWidth(), (float) entities.get(i).getHeight());*/
 		}
+		exit.draw();
+
 		batch.end();
 		
 		//test of player motion
+		exit.exitContainsPlayer(plane.getCenter());
 		plane.findNewVelocity(entities);
-
+		//exit.exitContainsPlayer(plane.getMidPointX(), plane.getMidPointY());
+		
 	}
 	
 	public void dispose()
