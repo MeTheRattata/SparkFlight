@@ -28,19 +28,19 @@ public class Player extends Entity
 		return MASS;
 	}
 	/**
-	 * @param entities a arraylist of 
+	 * @param charges a arraylist of 
 	 */
-	public void findNewVelocity (ArrayList<Entity> entities)
+	public void findNewVelocity (ArrayList<SourceCharge> charges)
 	{
 		Vector2 displacement = new Vector2();
-		for(int i = 0; i < entities.size();i++)
+		for(int i = 0; i < charges.size();i++)
 		{
-			displacement.x = entities.get(i).positionX - positionX;
-			displacement.y = entities.get(i).positionY - positionY;
+			displacement.x = charges.get(i).positionX - positionX;
+			displacement.y = charges.get(i).positionY - positionY;
 			float d2 = displacement.len2(); // find square distance
 			displacement.nor() // make the vector length 1
 			//scale by k * q * Q / d ^ 2
-			.scl((float)-(K * entities.get(i).charge * charge) / d2);
+			.scl((float)-(K * charges.get(i).charge * charge) / d2);
 		}
 		
 		

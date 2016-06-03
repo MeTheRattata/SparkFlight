@@ -8,15 +8,12 @@ import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 
 public class SparkFlight extends ApplicationAdapter {
 	private SpriteBatch batch;
 	private OrthographicCamera camera;
-//	private Rectangle plane;
-	private ArrayList<Entity> entities = new ArrayList<Entity>();
+	private ArrayList<SourceCharge> charges = new ArrayList<SourceCharge>();
 	private Player plane;
 	private int width;
 	private int height;
@@ -35,19 +32,11 @@ public class SparkFlight extends ApplicationAdapter {
 		Gdx.input.setInputProcessor(new InputAdapter () {
 			   public boolean touchUp (int x, int y, int pointer, int button) {
 				   if(button == Buttons.LEFT) {
-					      Vector2 touchPos = new Vector2();
-					      touchPos.set(Gdx.input.getX(), Gdx.input.getY());
-					      System.out.println("Mouse x: " + Gdx.input.getX());
-					      System.out.println("Mouse y: " + Gdx.input.getY());
-					      entities.add(new SourceCharge(Gdx.input.getX() - 65, height - Gdx.input.getY() - 65, 1));
+					      charges.add(new SourceCharge(Gdx.input.getX() - 65, height - Gdx.input.getY() - 65, 1));
 					      return true;
 					}
 					else if(button == Buttons.RIGHT) {
-					      Vector2 touchPos = new Vector2();
-					      touchPos.set(Gdx.input.getX(), Gdx.input.getY());
-					      System.out.println("Mouse x: " + Gdx.input.getX());
-					      System.out.println("Mouse y: " + Gdx.input.getY());
-					      entities.add(new SourceCharge(Gdx.input.getX() - 65, height - Gdx.input.getY() - 65, -1));
+					      charges.add(new SourceCharge(Gdx.input.getX() - 65, height - Gdx.input.getY() - 65, -1));
 					      return true;
 					}
 					return false;
@@ -69,13 +58,13 @@ public class SparkFlight extends ApplicationAdapter {
 		batch.draw(plane.getTexture(), plane.getX(), plane.getY(), plane.getWidth(), plane.getHeight());
 //		System.out.println("Plane position x: " + plane.getMidPointX());
 //		System.out.println("Plane position y: " + plane.getMidPointY());
-		for(int i = 0; i < entities.size(); i++)
-			batch.draw(entities.get(i).getTexture(), (float) entities.get(i).getX(), (float) entities.get(i).getY(), (float) entities.get(i).getWidth(), (float) entities.get(i).getHeight());
+		for(int i = 0; i < charges.size(); i++)
+			batch.draw(charges.get(i).getTexture(), (float) charges.get(i).getX(), (float) charges.get(i).getY(), (float) charges.get(i).getWidth(), (float) charges.get(i).getHeight());
 		
 		batch.end();
 		
 		//test of player motion
-		plane.findNewVelocity(entities);
+		plane.findNewVelocity(charges);
 
 	}
 	
