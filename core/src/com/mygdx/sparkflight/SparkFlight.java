@@ -70,11 +70,11 @@ public class SparkFlight extends ApplicationAdapter {
 		for(int i = 0; i < entities.size(); i++)
 		{
 			if(entities.get(i).getCharge() > 0)
-				batch.draw(assets.get("positive.png", Texture.class), (float) entities.get(i).getX(), 
-				(float) entities.get(i).getY(), (float) entities.get(i).getWidth(), (float) entities.get(i).getHeight());
+				batch.draw(assets.get("positive.png", Texture.class), entities.get(i).getX(), 
+				 entities.get(i).getY(), entities.get(i).getWidth(), entities.get(i).getHeight());
 			else if(entities.get(i).getCharge() < 0)
-				batch.draw(assets.get("negative.png", Texture.class), (float) entities.get(i).getX(), 
-				(float) entities.get(i).getY(), (float) entities.get(i).getWidth(), (float) entities.get(i).getHeight());
+				batch.draw(assets.get("negative.png", Texture.class), entities.get(i).getX(), 
+				entities.get(i).getY(), entities.get(i).getWidth(), entities.get(i).getHeight());
 		}
 		batch.end();
 		
