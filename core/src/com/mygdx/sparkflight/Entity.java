@@ -1,89 +1,53 @@
 package com.mygdx.sparkflight;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class Entity 
+public class Entity extends Actor
 {
-	float positionX;
-	float positionY;
+	float posX;
+	float posY;
+	float width;
+	float height;
 	double charge;
-	Texture image;
+	String name;
 	
 	/**
 	 * Constructor for an Entity
 	 * 
-	 * @param x creates the X position
-	 * @param y creates the Y position
+	 * @param x creates the X pos
+	 * @param y creates the Y pos
 	 * @param c creates the objects charge
 	 * @param name used to create the object's texture
 	 */
-	public Entity (float x, float y, double c, String name)
+	public Entity (float x, float y, double c, String n)
 	{
-		positionX = x;
-		positionY = y;
+		posX = x;
+		posY = y;
 		charge = c;
-		image = new Texture(name + ".png");
+		name = n;
+		width = SparkFlight.assets.get(name + ".png", Texture.class).getWidth();
+		height = SparkFlight.assets.get(name + ".png", Texture.class).getHeight();
 	}
-	/**
-	 * @return X
-	 */
-	public float getX ()
+	public float getMidPointX()
 	{
-		return positionX;
-	}
-	/**
-	 * @return Y
-	 */
-	public float getY ()
-	{
-		return positionY;
-	}
-	/**
-	 * @return charge
-	 */
-	public double getCharge ()
-	{
-		return charge;
-	}
-	public void updateImage(String newName)
-	{
-		image = new Texture(newName + ".png");
-		System.out.println(newName);
-	}
-	public float getMidPointX ()
-	{
-		return positionX + (image.getWidth()/2);
+		return posX + width/2;
 	}
 	/**
 	 * @return Y
 	 */
-	public float getMidPointY ()
+	public float getMidPointY()
 	{
-		return positionY + (image.getHeight()/2);
+		return posY + height/2;
 	}
-	/**
-	 * @return texture
-	 */
-	public Texture getTexture()
+	public void resize(float newWidth, float newHeight)
 	{
-		return image;
-	}
-	public void setX(float x)
-	{
-		positionX = x;
-	}
-	public void setY(float y)
-	{
-		positionY = y;
+		width = newWidth;
+		height = newHeight;
 	}
 	
-	public float getWidth()
+	public void draw()
 	{
-		return image.getWidth();
-	}
-	
-	public float getHeight()
-	{
-		return image.getHeight();
+		SparkFlight.batch.draw(SparkFlight.assets.get(name + ".png", Texture.class), posX, posY, width, height);
 	}
 }

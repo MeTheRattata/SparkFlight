@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 public class SparkFlight extends ApplicationAdapter {
-	private SpriteBatch batch;
+	public static SpriteBatch batch;
 	private OrthographicCamera camera;
 //	private Rectangle plane;
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
@@ -74,17 +74,18 @@ public class SparkFlight extends ApplicationAdapter {
 		//Makes batch only show what is inside the camera's FOV
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
-		batch.draw(assets.get("plane.png", Texture.class), plane.getX(), plane.getY(), plane.getWidth(), plane.getHeight());
+		plane.draw();
 //		System.out.println("Plane position x: " + plane.getMidPointX());
 //		System.out.println("Plane position y: " + plane.getMidPointY());
 		for(int i = 0; i < entities.size(); i++)
 		{
-			if(entities.get(i).getCharge() > 0)
+			entities.get(i).draw();
+			/*if(entities.get(i).charge > 0)
 				batch.draw(assets.get("positive.png", Texture.class), (float) entities.get(i).getX(), 
 				(float) entities.get(i).getY(), (float) entities.get(i).getWidth(), (float) entities.get(i).getHeight());
-			else if(entities.get(i).getCharge() < 0)
+			else if(entities.get(i).charge < 0)
 				batch.draw(assets.get("negative.png", Texture.class), (float) entities.get(i).getX(), 
-				(float) entities.get(i).getY(), (float) entities.get(i).getWidth(), (float) entities.get(i).getHeight());
+				(float) entities.get(i).getY(), (float) entities.get(i).getWidth(), (float) entities.get(i).getHeight());*/
 		}
 		batch.end();
 		

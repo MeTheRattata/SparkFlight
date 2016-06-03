@@ -8,8 +8,6 @@ import com.badlogic.gdx.math.Vector2;
 public class Player extends Entity 
 {
 	//Cordinates for the center of the plane. 
-	float midPointX;
-	float midPointY;
 	Vector2 velocity = new Vector2(0,0);
 	final float MASS = (float) 0.045;
 	final long K = 9_000_000_000L;
@@ -19,9 +17,7 @@ public class Player extends Entity
 	{
 		super(x, y, c,name);
 		//Size of plane 170 by 100
-		midPointX = x + image.getWidth()/2;
-		midPointY = y + image.getHeight()/2;
-		hitBox = new Rectangle(x, y, image.getWidth(), image.getHeight());
+		hitBox = new Rectangle(x, y, width, height);
 	}
 	public float getMass ()
 	{
@@ -35,8 +31,8 @@ public class Player extends Entity
 		Vector2 displacement = new Vector2();
 		for(int i = 0; i < entities.size();i++)
 		{
-			displacement.x = entities.get(i).positionX - positionX;
-			displacement.y = entities.get(i).positionY - positionY;
+			displacement.x = entities.get(i).posX - posX;
+			displacement.y = entities.get(i).posY - posY;
 			float d2 = displacement.len2(); // find square distance
 			displacement.nor() // make the vector length 1
 			//scale by k * q * Q / d ^ 2
@@ -52,22 +48,22 @@ public class Player extends Entity
 	private void findNewX ()
 	{
 		
-		positionX = (velocity.x + positionX);
-		if(positionX < 0)
-			positionX = 0;
-		else if(positionX > 600)
-			positionX = 600;
-		this.setX(positionX);
+		posX = (velocity.x + posX);
+		if(posX < 0)
+			posX = 0;
+		else if(posX > 600)
+			posX = 600;
+		this.setX(posX);
 		
 	}
 	private void findNewY ()
 	{
-		positionY = (velocity.y + positionY);
-		if(positionY < 0)
-			positionY = 0;
-		else if(positionY > 480)
-			positionY = 480;
-		this.setY(positionY);
+		posY = (velocity.y + posY);
+		if(posY < 0)
+			posY = 0;
+		else if(posY > 480)
+			posY = 480;
+		this.setY(posY);
 	}
 	
 }
