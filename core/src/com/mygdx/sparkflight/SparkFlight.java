@@ -83,6 +83,7 @@ public class SparkFlight extends ApplicationAdapter {
 		batch.end();
 		
 		//test of player motion
+		exit.exitContainsPlayer(plane.getCenter());
 		plane.findNewVelocity(entities);
 
 	}

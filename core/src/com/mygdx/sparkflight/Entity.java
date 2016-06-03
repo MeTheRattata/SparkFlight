@@ -6,6 +6,8 @@ public class Entity
 {
 	float positionX;
 	float positionY;
+	float midPointX;
+	float midPointY;
 	double charge;
 	Texture image;
 	
@@ -21,8 +23,10 @@ public class Entity
 	{
 		positionX = x;
 		positionY = y;
-		charge = c;
 		image = new Texture(name + ".png");
+		midPointX = x + image.getWidth() / 2;
+		midPointY = y + image.getHeight() / 2;
+		charge = c;
 	}
 	/**
 	 * @return X
@@ -50,17 +54,6 @@ public class Entity
 		image = new Texture(newName + ".png");
 		System.out.println(newName);
 	}
-	public float getMidPointX ()
-	{
-		return positionX + (image.getWidth()/2);
-	}
-	/**
-	 * @return Y
-	 */
-	public float getMidPointY ()
-	{
-		return positionY + (image.getHeight()/2);
-	}
 	/**
 	 * @return texture
 	 */
@@ -70,10 +63,12 @@ public class Entity
 	}
 	public void setX(float x)
 	{
+		midPointX = x + image.getWidth() / 2;
 		positionX = x;
 	}
 	public void setY(float y)
 	{
+		midPointY = y + image.getHeight() / 2;
 		positionY = y;
 	}
 	

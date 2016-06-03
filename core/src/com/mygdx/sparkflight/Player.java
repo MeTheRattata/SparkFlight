@@ -8,12 +8,10 @@ import com.badlogic.gdx.math.Vector2;
 public class Player extends Entity 
 {
 	//Cordinates for the center of the plane. 
-	float midPointX;
-	float midPointY;
 	Vector2 velocity = new Vector2(0,0);
 	final float MASS = (float) 0.045;
 	final long K = 9_000_000_000L;
-	Rectangle hitBox;
+	private Rectangle hitBox;
 	
 	public Player(float x, float y, double c, String name) 
 	{
@@ -45,7 +43,7 @@ public class Player extends Entity
 		
 		
 		velocity.add(displacement.x / MASS, displacement.y / MASS);
-		System.out.println("X velocity: " + velocity.x + "\nY velocity: " + velocity.y);
+//		System.out.println("X velocity: " + velocity.x + "\nY velocity: " + velocity.y);
 		findNewX();
 		findNewY();
 	}
@@ -58,6 +56,7 @@ public class Player extends Entity
 		else if(positionX > 600)
 			positionX = 600;
 		this.setX(positionX);
+		hitBox.setX(positionX);
 		
 	}
 	private void findNewY ()
@@ -68,6 +67,17 @@ public class Player extends Entity
 		else if(positionY > 480)
 			positionY = 480;
 		this.setY(positionY);
+		hitBox.setY(positionY);
+	}
+	
+	public Rectangle getHitbox()
+	{
+		return hitBox;
+	}
+	
+	public Vector2 getCenter()
+	{
+		return new Vector2(midPointX, midPointY);
 	}
 	
 }
