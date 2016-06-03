@@ -20,7 +20,7 @@ public class SparkFlight extends ApplicationAdapter {
 	private Player plane;
 	private int width;
 	private int height;
-	
+	private Exit exit;
 	@Override
 	public void create () 
 	{
@@ -30,11 +30,15 @@ public class SparkFlight extends ApplicationAdapter {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, width, height);
 		
-		plane = new Player(150,150,0.0000000009,"plane");
 		
-		Gdx.input.setInputProcessor(new InputAdapter () {
-			   public boolean touchUp (int x, int y, int pointer, int button) {
-				   if(button == Buttons.LEFT) {
+		plane = new Player(150,150,0.0000000009,"plane");
+		exit = new Exit (0,0,0,"plane");
+		Gdx.input.setInputProcessor(new InputAdapter () 
+		{
+			   public boolean touchUp (int x, int y, int pointer, int button) 
+			   {
+				   if(button == Buttons.LEFT) 
+				   {
 					      Vector2 touchPos = new Vector2();
 					      touchPos.set(Gdx.input.getX(), Gdx.input.getY());
 					      System.out.println("Mouse x: " + Gdx.input.getX());
@@ -42,7 +46,8 @@ public class SparkFlight extends ApplicationAdapter {
 					      entities.add(new SourceCharge(Gdx.input.getX() - 65, height - Gdx.input.getY() - 65, 1));
 					      return true;
 					}
-					else if(button == Buttons.RIGHT) {
+					else if(button == Buttons.RIGHT) 
+					{
 					      Vector2 touchPos = new Vector2();
 					      touchPos.set(Gdx.input.getX(), Gdx.input.getY());
 					      System.out.println("Mouse x: " + Gdx.input.getX());
@@ -72,11 +77,13 @@ public class SparkFlight extends ApplicationAdapter {
 		for(int i = 0; i < entities.size(); i++)
 			batch.draw(entities.get(i).getTexture(), (float) entities.get(i).getX(), (float) entities.get(i).getY(), (float) entities.get(i).getWidth(), (float) entities.get(i).getHeight());
 		
+		batch.draw(exit.getTexture(), exit.getX(), exit.getY(), exit.getWidth(), exit.getHeight());
 		batch.end();
 		
 		//test of player motion
 		plane.findNewVelocity(entities);
-
+		exit.exitContainsPlayer(plane.getMidPointX(), plane.getMidPointY());
+		
 	}
 	
 	public void dispose()
