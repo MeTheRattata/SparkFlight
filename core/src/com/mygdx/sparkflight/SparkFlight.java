@@ -27,7 +27,6 @@ public class SparkFlight extends ApplicationAdapter {
 	public void create () 
 	{
 		assets = new AssetManager();
-		assets.load("exit.png", Texture.class);
 		assets.load("plane.png", Texture.class);
 		assets.load("positive.png", Texture.class);
 		assets.load("negative.png", Texture.class);
@@ -74,15 +73,7 @@ public class SparkFlight extends ApplicationAdapter {
 //		System.out.println("Plane position x: " + plane.getMidPointX());
 //		System.out.println("Plane position y: " + plane.getMidPointY());
 		for(int i = 0; i < entities.size(); i++)
-		{
 			entities.get(i).draw();
-			/*if(entities.get(i).charge > 0)
-				batch.draw(assets.get("positive.png", Texture.class), (float) entities.get(i).getX(), 
-				(float) entities.get(i).getY(), (float) entities.get(i).getWidth(), (float) entities.get(i).getHeight());
-			else if(entities.get(i).charge < 0)
-				batch.draw(assets.get("negative.png", Texture.class), (float) entities.get(i).getX(), 
-				(float) entities.get(i).getY(), (float) entities.get(i).getWidth(), (float) entities.get(i).getHeight());*/
-		}
 		exit.draw();
 
 		batch.end();
