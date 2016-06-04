@@ -1,7 +1,6 @@
 package com.mygdx.sparkflight;
 
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 
 public class Exit extends Entity 
 {
@@ -11,9 +10,10 @@ public class Exit extends Entity
 		super(x, y, c, name);
 		hitBox = new Rectangle(x, y, width, height);
 	}
-	public void exitContainsPlayer (Vector2 center)
+	
+	public void act()
 	{
-		if(hitBox.contains(center))
+		if(hitBox.contains(SparkFlight.plane.getCenter()))
 		{
 			System.out.println("Player has reached the exit!");
 		}

@@ -7,7 +7,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,9 +14,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class SparkFlight extends ApplicationAdapter {
 	public static SpriteBatch batch;
-	public static ArrayList<SourceCharge> entities = new ArrayList<SourceCharge>();
+	//ArrayList of ALL Actors for drawing and acting purposes
+	public static ArrayList<Entity> entities = new ArrayList<Entity>();
 	public OrthographicCamera camera;
-	private Player plane;
+	public static Player plane;
 	private int width;
 	private int height;
 	public static AssetManager assets;
@@ -42,16 +42,23 @@ public class SparkFlight extends ApplicationAdapter {
 		exit = new Exit(450, 450, 0, "exit");
 		plane = new Player(150,150,0.0000000009,"plane");
 		
+		entities.add(exit);
+		entities.add(plane);
+		
 
 		Gdx.input.setInputProcessor(new InputAdapter () {
 			   public boolean touchUp (int x, int y, int pointer, int button) {
 				   if(button == Buttons.LEFT) {
-					      entities.add(new SourceCharge(Gdx.input.getX() - 65, height - Gdx.input.getY() - 65, 1));
-					      return true;
+					   SourceCharge newCharge = new SourceCharge(Gdx.input.getX() - 65, height - Gdx.input.getY() - 65, 1);
+					   entities.add(newCharge);
+					   Player.charges.add(newCharge);
+					   return true;
 					}
 					else if(button == Buttons.RIGHT) {
-					      entities.add(new SourceCharge(Gdx.input.getX() - 65, height - Gdx.input.getY() - 65, -1));
-					      return true;
+						SourceCharge newCharge = new SourceCharge(Gdx.input.getX() - 65, height - Gdx.input.getY() - 65, -1);
+						entities.add(newCharge);
+						Player.charges.add(newCharge);
+						return true;
 					}
 					return false;
 			   }
@@ -69,18 +76,16 @@ public class SparkFlight extends ApplicationAdapter {
 		//Makes batch only show what is inside the camera's FOV
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
-		plane.draw();
+		
 //		System.out.println("Plane position x: " + plane.getMidPointX());
 //		System.out.println("Plane position y: " + plane.getMidPointY());
 		for(int i = 0; i < entities.size(); i++)
+		{
+			entities.get(i).act();
 			entities.get(i).draw();
-		exit.draw();
-
+		}
 		batch.end();
 		
-		//test of player motion
-		exit.exitContainsPlayer(plane.getCenter());
-		plane.findNewVelocity(entities);
 		//exit.exitContainsPlayer(plane.getMidPointX(), plane.getMidPointY());
 		
 	}

@@ -46,4 +46,8 @@ public class Entity extends Actor
 	{
 		SparkFlight.batch.draw(SparkFlight.assets.get(name + ".png", Texture.class), posX, posY, width, height);
 	}
+	public void act()
+	{
+		//Blank because most default entities do not react, they are there to be reacted to
+	}
 }
