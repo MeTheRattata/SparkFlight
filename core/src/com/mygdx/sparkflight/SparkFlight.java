@@ -1,12 +1,14 @@
 package com.mygdx.sparkflight;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -22,6 +24,7 @@ public class SparkFlight extends ApplicationAdapter {
 	private int height;
 	public static AssetManager assets;
 	public Exit exit;
+	public int level = 1;
 	
 	@Override
 	public void create () 
@@ -31,6 +34,7 @@ public class SparkFlight extends ApplicationAdapter {
 		assets.load("positive.png", Texture.class);
 		assets.load("negative.png", Texture.class);
 		assets.load("exit.png", Texture.class);
+		assets.load("wall.png", Texture.class);
 		assets.finishLoading();
 		
 		width = 800;
@@ -39,11 +43,32 @@ public class SparkFlight extends ApplicationAdapter {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, width, height);
 		
-		exit = new Exit(450, 450, 0, "exit");
-		plane = new Player(150,150,0.0000000009,"plane");
+		FileHandle file = Gdx.files.internal("level" + level);
+		StringTokenizer tokens = new StringTokenizer(file.readString());
 		
-		entities.add(exit);
-		entities.add(plane);
+		while(tokens.hasMoreTokens())
+		{
+			String type = tokens.nextToken();
+			if(type.equals("Player"))
+			{
+				plane = new Player(Float.parseFloat(tokens.nextToken()),
+									Float.parseFloat(tokens.nextToken()),
+									Float.parseFloat(tokens.nextToken()),
+									tokens.nextToken());
+				entities.add(plane);
+			} else if(type.equals("Exit"))
+			{
+				exit = new Exit(Float.parseFloat(tokens.nextToken()),
+								Float.parseFloat(tokens.nextToken()));
+				entities.add(exit);
+			} else if(type.equals("Wall"))
+			{
+				entities.add(new Wall(Float.parseFloat(tokens.nextToken()),
+										Float.parseFloat(tokens.nextToken())));
+			}
+		}
+		
+		
 		
 
 		Gdx.input.setInputProcessor(new InputAdapter () {
