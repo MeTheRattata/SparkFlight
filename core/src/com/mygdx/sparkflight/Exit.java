@@ -9,7 +9,7 @@ public class Exit extends Entity
 	
 	public void act()
 	{
-		if(SparkFlight.plane.getHitbox().contains(SparkFlight.exit.getCenter()))
+		if(SparkFlight.plane.getHitbox().overlaps(SparkFlight.exit.getHitbox()))
 		{
 			System.out.println("Player has completed the level.");
 			SparkFlight.level++;

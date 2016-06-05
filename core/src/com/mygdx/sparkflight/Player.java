@@ -11,7 +11,6 @@ public class Player extends Entity
 	Vector2 velocity = new Vector2(0,0);
 	final float MASS = (float) 0.045;
 	final long K = 9_000_000_000L;
-	private Rectangle hitBox;
 	public static ArrayList<SourceCharge> charges;
 	
 	public Player(float x, float y, double c, String name) 
@@ -46,16 +45,6 @@ public class Player extends Entity
 			posY = 480;
 		this.setY(posY);
 		hitBox.setY(posY);
-	}
-	
-	public Rectangle getHitbox()
-	{
-		return hitBox;
-	}
-	
-	public Vector2 getCenter()
-	{
-		return new Vector2(getMidPointX(), getMidPointY());
 	}
 	
 	public void act()

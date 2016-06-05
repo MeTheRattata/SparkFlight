@@ -1,6 +1,7 @@
 package com.mygdx.sparkflight;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -12,6 +13,7 @@ public class Entity extends Actor
 	float height;
 	double charge;
 	String name;
+	Rectangle hitBox;
 	
 	/**
 	 * Constructor for an Entity
@@ -29,6 +31,7 @@ public class Entity extends Actor
 		name = n;
 		width = SparkFlight.assets.get(name + ".png", Texture.class).getWidth();
 		height = SparkFlight.assets.get(name + ".png", Texture.class).getHeight();
+		hitBox = new Rectangle(posX, posY, width, height);
 	}
 	public float getMidPointX()
 	{
@@ -41,6 +44,10 @@ public class Entity extends Actor
 	public Vector2 getCenter()
 	{
 		return new Vector2(getMidPointX(), getMidPointY());
+	}
+	public Rectangle getHitbox()
+	{
+		return hitBox;
 	}
 	public void resize(float newWidth, float newHeight)
 	{
