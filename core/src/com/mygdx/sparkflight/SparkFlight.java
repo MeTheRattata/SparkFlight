@@ -21,7 +21,7 @@ public class SparkFlight extends ApplicationAdapter {
 	private int height;
 	public static AssetManager assets;
 	public Exit exit;
-	
+	public Wall wall;
 	@Override
 	public void create () 
 	{
@@ -31,6 +31,7 @@ public class SparkFlight extends ApplicationAdapter {
 		assets.load("positive.png", Texture.class);
 		assets.load("negative.png", Texture.class);
 		assets.load("exit.png", Texture.class);
+		assets.load("wall.png", Texture.class);
 		assets.finishLoading();
 		
 		width = 800;
@@ -38,10 +39,9 @@ public class SparkFlight extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, width, height);
-		
 		exit = new Exit(450, 450, 0, "exit");
 		plane = new Player(150,150,0.0000000009,"plane");
-		
+		wall = new Wall(100,100,0,"wall");
 
 		Gdx.input.setInputProcessor(new InputAdapter () {
 			   public boolean touchUp (int x, int y, int pointer, int button) {
@@ -71,7 +71,8 @@ public class SparkFlight extends ApplicationAdapter {
 		batch.begin();
 		batch.draw(assets.get("exit.png", Texture.class), exit.getX(), exit.getY(), exit.getWidth(), exit.getHeight());
 		batch.draw(assets.get("plane.png", Texture.class), plane.getX(), plane.getY(), plane.getWidth(), plane.getHeight());
-//		System.out.println("Plane position x: " + plane.getMidPointX());
+		batch.draw(assets.get("wall.png", Texture.class), wall.getX(), wall.getY(), wall.getWidth(), wall.getHeight());
+		System.out.println("Plane position x: " + plane.getMidPointX());
 //		System.out.println("Plane position y: " + plane.getMidPointY());
 		for(int i = 0; i < entities.size(); i++)
 			batch.draw(entities.get(i).getTexture(), (float) entities.get(i).getX(), (float) entities.get(i).getY(), (float) entities.get(i).getWidth(), (float) entities.get(i).getHeight());
@@ -83,7 +84,7 @@ public class SparkFlight extends ApplicationAdapter {
 		//test of player motion
 		plane.findNewVelocity(entities);
 		exit.exitContainsPlayer(plane.getMidPointX(), plane.getMidPointY());
-		
+		wall.wallContainsPlayer(plane.getHitBox());
 	}
 	
 	public void dispose()

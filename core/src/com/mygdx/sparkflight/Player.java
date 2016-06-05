@@ -69,5 +69,8 @@ public class Player extends Entity
 			positionY = 480;
 		this.setY(positionY);
 	}
-	
+	 public Rectangle getHitBox()
+	 {
+		 return hitBox;
+	 }
 }
