@@ -1,6 +1,7 @@
 package com.mygdx.sparkflight;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Entity extends Actor
@@ -36,6 +37,10 @@ public class Entity extends Actor
 	public float getMidPointY()
 	{
 		return posY + height/2;
+	}
+	public Vector2 getCenter()
+	{
+		return new Vector2(getMidPointX(), getMidPointY());
 	}
 	public void resize(float newWidth, float newHeight)
 	{
