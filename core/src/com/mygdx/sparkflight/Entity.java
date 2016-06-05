@@ -1,89 +1,65 @@
 package com.mygdx.sparkflight;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class Entity 
+public class Entity extends Actor
 {
-	float positionX;
-	float positionY;
+	float posX;
+	float posY;
+	float width;
+	float height;
 	double charge;
-	Texture image;
+	String name;
+	Rectangle hitBox;
 	
 	/**
 	 * Constructor for an Entity
 	 * 
-	 * @param x creates the X position
-	 * @param y creates the Y position
+	 * @param x creates the X pos
+	 * @param y creates the Y pos
 	 * @param c creates the objects charge
 	 * @param name used to create the object's texture
 	 */
-	public Entity (float x, float y, double c, String name)
+	public Entity (float x, float y, double c, String n)
 	{
-		positionX = x;
-		positionY = y;
+		posX = x;
+		posY = y;
 		charge = c;
-		image = new Texture(name + ".png");
+		name = n;
+		width = SparkFlight.assets.get(name + ".png", Texture.class).getWidth();
+		height = SparkFlight.assets.get(name + ".png", Texture.class).getHeight();
+		hitBox = new Rectangle(posX, posY, width, height);
 	}
-	/**
-	 * @return X
-	 */
-	public float getX ()
+	public float getMidPointX()
 	{
-		return positionX;
+		return posX + width/2;
 	}
-	/**
-	 * @return Y
-	 */
-	public float getY ()
+	public float getMidPointY()
 	{
-		return positionY;
+		return posY + height/2;
 	}
-	/**
-	 * @return charge
-	 */
-	public double getCharge ()
+	public Vector2 getCenter()
 	{
-		return charge;
+		return new Vector2(getMidPointX(), getMidPointY());
 	}
-	public void updateImage(String newName)
+	public Rectangle getHitbox()
 	{
-		image = new Texture(newName + ".png");
-		System.out.println(newName);
+		return hitBox;
 	}
-	public float getMidPointX ()
+	public void resize(float newWidth, float newHeight)
 	{
-		return positionX + (image.getWidth()/2);
+		width = newWidth;
+		height = newHeight;
 	}
-	/**
-	 * @return Y
-	 */
-	public float getMidPointY ()
+	public void draw()
 	{
-		return positionY + (image.getHeight()/2);
+		SparkFlight.batch.draw(SparkFlight.assets.get(name + ".png", Texture.class), posX, posY, width, height);
 	}
-	/**
-	 * @return texture
-	 */
-	public Texture getTexture()
+	public void act()
 	{
-		return image;
-	}
-	public void setX(float x)
-	{
-		positionX = x;
-	}
-	public void setY(float y)
-	{
-		positionY = y;
-	}
-	
-	public float getWidth()
-	{
-		return image.getWidth();
-	}
-	
-	public float getHeight()
-	{
-		return image.getHeight();
+		//Blank because most default entities do not react, they are there to be reacted to
 	}
 }

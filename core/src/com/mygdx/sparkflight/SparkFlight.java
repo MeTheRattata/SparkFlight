@@ -1,32 +1,36 @@
 package com.mygdx.sparkflight;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class SparkFlight extends ApplicationAdapter {
-	private SpriteBatch batch;
-	private OrthographicCamera camera;
-	private ArrayList<SourceCharge> entities = new ArrayList<SourceCharge>();
-	private Player plane;
+	public static SpriteBatch batch;
+	//ArrayList of ALL Actors for drawing and acting purposes
+	public static ArrayList<Entity> entities = new ArrayList<Entity>();
+	public OrthographicCamera camera;
+	public static Player plane;
 	private int width;
 	private int height;
 	public static AssetManager assets;
-	public Exit exit;
-	public Wall wall;
+	public static Exit exit;
+	public static int level = 1;
+	public static boolean changeLevel = true;
+	
 	@Override
 	public void create () 
 	{
 		assets = new AssetManager();
-		assets.load("exit.png", Texture.class);
 		assets.load("plane.png", Texture.class);
 		assets.load("positive.png", Texture.class);
 		assets.load("negative.png", Texture.class);
@@ -46,12 +50,16 @@ public class SparkFlight extends ApplicationAdapter {
 		Gdx.input.setInputProcessor(new InputAdapter () {
 			   public boolean touchUp (int x, int y, int pointer, int button) {
 				   if(button == Buttons.LEFT) {
-					      entities.add(new SourceCharge(Gdx.input.getX() - 65, height - Gdx.input.getY() - 65, 1));
-					      return true;
+					   SourceCharge newCharge = new SourceCharge(Gdx.input.getX() - 65, height - Gdx.input.getY() - 65, 1);
+					   entities.add(newCharge);
+					   Player.charges.add(newCharge);
+					   return true;
 					}
 					else if(button == Buttons.RIGHT) {
-					      entities.add(new SourceCharge(Gdx.input.getX() - 65, height - Gdx.input.getY() - 65, -1));
-					      return true;
+						SourceCharge newCharge = new SourceCharge(Gdx.input.getX() - 65, height - Gdx.input.getY() - 65, -1);
+						entities.add(newCharge);
+						Player.charges.add(newCharge);
+						return true;
 					}
 					return false;
 			   }
@@ -59,7 +67,7 @@ public class SparkFlight extends ApplicationAdapter {
 	}
 
 	@Override
-	public void render () 
+	public void render() 
 	{
 		Gdx.gl.glClearColor(0, 1, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -75,21 +83,53 @@ public class SparkFlight extends ApplicationAdapter {
 		System.out.println("Plane position x: " + plane.getMidPointX());
 //		System.out.println("Plane position y: " + plane.getMidPointY());
 		for(int i = 0; i < entities.size(); i++)
-			batch.draw(entities.get(i).getTexture(), (float) entities.get(i).getX(), (float) entities.get(i).getY(), (float) entities.get(i).getWidth(), (float) entities.get(i).getHeight());
+		{
+			entities.get(i).act();
+			entities.get(i).draw();
+		}
 		
-		batch.draw(exit.getTexture(), exit.getX(), exit.getY(), exit.getWidth(), exit.getHeight());
-
+		if(changeLevel)
+		{
+			loadLevel(level);
+		}
+		
 		batch.end();
-		
-		//test of player motion
-		plane.findNewVelocity(entities);
-		exit.exitContainsPlayer(plane.getMidPointX(), plane.getMidPointY());
-		wall.wallContainsPlayer(plane.getHitBox());
 	}
 	
 	public void dispose()
 	{	
 		batch.dispose();
 		assets.dispose();
+	}
+	
+	public void loadLevel(int level)
+	{
+		changeLevel = false;
+		entities.clear();
+		
+		FileHandle file = Gdx.files.internal("level" + level);
+		StringTokenizer tokens = new StringTokenizer(file.readString());
+		
+		while(tokens.hasMoreTokens())
+		{
+			String type = tokens.nextToken();
+			if(type.equals("Player"))
+			{
+				plane = new Player(Float.parseFloat(tokens.nextToken()),
+									Float.parseFloat(tokens.nextToken()),
+									Float.parseFloat(tokens.nextToken()),
+									tokens.nextToken());
+				entities.add(plane);
+			} else if(type.equals("Exit"))
+			{
+				exit = new Exit(Float.parseFloat(tokens.nextToken()),
+								Float.parseFloat(tokens.nextToken()));
+				entities.add(exit);
+			} else if(type.equals("Wall"))
+			{
+				entities.add(new Wall(Float.parseFloat(tokens.nextToken()),
+										Float.parseFloat(tokens.nextToken())));
+			}
+		}
 	}
 }

@@ -1,20 +1,20 @@
 package com.mygdx.sparkflight;
 
-import java.awt.Rectangle;
-
 public class Exit extends Entity 
 {
-	private Rectangle hitBox;
-	public Exit(float x, float y, double c, String name) 
+	public Exit(float x, float y) 
 	{
-		super(x, y, c, name);
-		hitBox = new Rectangle(image.getWidth(),image.getWidth());
+		super(x, y, 0, "exit");
 	}
-	public void exitContainsPlayer (float x,float y)
+	
+	public void act()
 	{
-		if(hitBox.contains(x, y))
+		if(SparkFlight.plane.getHitbox().overlaps(SparkFlight.exit.getHitbox()))
 		{
-			System.out.println("Player has reached the exit!");
+			System.out.println("Player has completed the level.");
+			SparkFlight.level++;
+			System.out.println(SparkFlight.level);
+			SparkFlight.changeLevel = true;
 		}
 	}
 }
