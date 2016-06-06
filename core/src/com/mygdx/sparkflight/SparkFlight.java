@@ -131,6 +131,13 @@ public class SparkFlight extends ApplicationAdapter {
 			{
 				entities.add(new Wall(Float.parseFloat(tokens.nextToken()),
 										Float.parseFloat(tokens.nextToken())));
+			} else if(type.equals("Source"))
+			{
+				SourceCharge charge = new SourceCharge(Float.parseFloat(tokens.nextToken()),
+						Float.parseFloat(tokens.nextToken()),
+						Double.parseDouble(tokens.nextToken()));
+				entities.add(charge);
+				Player.charges.add(charge);
 			}
 		}
 	}
