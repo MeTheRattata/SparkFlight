@@ -11,9 +11,7 @@ public class Exit extends Entity
 	{
 		if(SparkFlight.plane.getHitbox().overlaps(SparkFlight.exit.getHitbox()))
 		{
-			System.out.println("Player has completed the level.");
 			SparkFlight.level++;
-			System.out.println(SparkFlight.level);
 			SparkFlight.changeLevel = true;
 		}
 	}
