@@ -43,9 +43,9 @@ public class SparkFlight extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, width, height);
-		exit = new Exit(450, 450, 0, "exit");
+//		exit = new Exit(450, 450, 0, "exit");
 		plane = new Player(150,150,0.0000000009,"plane");
-		wall = new Wall(100,100,0,"wall");
+//		wall = new Wall(100,100,0,"wall");
 
 		Gdx.input.setInputProcessor(new InputAdapter () {
 			   public boolean touchUp (int x, int y, int pointer, int button) {
@@ -79,7 +79,7 @@ public class SparkFlight extends ApplicationAdapter {
 		batch.begin();
 		batch.draw(assets.get("exit.png", Texture.class), exit.getX(), exit.getY(), exit.getWidth(), exit.getHeight());
 		batch.draw(assets.get("plane.png", Texture.class), plane.getX(), plane.getY(), plane.getWidth(), plane.getHeight());
-		batch.draw(assets.get("wall.png", Texture.class), wall.getX(), wall.getY(), wall.getWidth(), wall.getHeight());
+//		batch.draw(assets.get("wall.png", Texture.class), wall.getX(), wall.getY(), wall.getWidth(), wall.getHeight());
 		System.out.println("Plane position x: " + plane.getMidPointX());
 //		System.out.println("Plane position y: " + plane.getMidPointY());
 		for(int i = 0; i < entities.size(); i++)
