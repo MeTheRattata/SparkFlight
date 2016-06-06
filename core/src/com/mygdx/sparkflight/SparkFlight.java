@@ -26,9 +26,10 @@ public class SparkFlight extends ApplicationAdapter {
 	public static Exit exit;
 	public static int level = 1;
 	public static boolean changeLevel = true;
+	public static boolean reloadLevel = false;
 	
 	@Override
-	public void create () 
+	public void create() 
 	{
 		assets = new AssetManager();
 		assets.load("plane.png", Texture.class);
@@ -88,6 +89,11 @@ public class SparkFlight extends ApplicationAdapter {
 			loadLevel(level);
 		}
 		
+		if(reloadLevel)
+		{
+			loadLevel(level);
+		}
+		
 		batch.end();
 	}
 	
@@ -100,6 +106,7 @@ public class SparkFlight extends ApplicationAdapter {
 	public void loadLevel(int level)
 	{
 		changeLevel = false;
+		reloadLevel = false;
 		entities.clear();
 		
 		FileHandle file = Gdx.files.internal("level" + level);
