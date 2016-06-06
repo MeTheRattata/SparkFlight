@@ -1,4 +1,4 @@
-Player 150 50 0.0000000009 plane
+Player 100 50 0.0000000009 plane
 Wall 320 0
 Wall 320 32
 Wall 320 64
@@ -19,5 +19,41 @@ Wall 416 416
 Wall 448 416
 Wall 416 416
 Wall 384 416
-Wall 352 416
-Wall 352 416
+Wall 448 416
+Wall 448 416
+Wall 448 0
+Wall 448 32
+Wall 448 64
+Wall 448 96
+Wall 448 128
+Wall 448 160
+Wall 416 160
+Wall 384 160
+Wall 352 160
+Wall 448 128
+Wall 416 128
+Wall 384 128
+Wall 352 128
+Wall 448 96
+Wall 416 96
+Wall 384 96
+Wall 352 96
+Wall 448 64
+Wall 416 64
+Wall 384 64
+Wall 352 64
+Wall 448 32
+Wall 416 32
+Wall 384 32
+Wall 352 32
+--
+Exit 352 224
+Wall 416 384
+Wall 384 384
+Wall 352 384
+--Wall 448 224
+--Wall 448 256
+--Wall 448 288
+--Wall 448 320
+--Wall 448 352
+Wall 448 384
