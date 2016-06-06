@@ -46,14 +46,8 @@ Wall 448 32
 Wall 416 32
 Wall 384 32
 Wall 352 32
---
+Wall 448 0
+Wall 416 0
+Wall 384 0
+Wall 352 0
 Exit 352 224
-Wall 416 384
-Wall 384 384
-Wall 352 384
---Wall 448 224
---Wall 448 256
---Wall 448 288
---Wall 448 320
---Wall 448 352
-Wall 448 384

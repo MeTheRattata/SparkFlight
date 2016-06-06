@@ -1,17 +1,16 @@
 Player 100 50 0.0000000009 plane
---Wall 192 640
---Wall 192 608
+Wall 192 640
+Wall 192 608
 Wall 256 576
 Wall 256 544
 Wall 256 512
 Wall 256 480
---Wall 416 640
---Wall 416 608
+Wall 416 640
+Wall 416 608
 Wall 480 576
 Wall 480 544
 Wall 480 512
 Wall 480 480
---center 352
 Exit 352 350
 Wall 192 256
 Wall 224 224
