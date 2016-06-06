@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Player extends Entity 
 {
-	//Cordinates for the center of the plane. 
 	Vector2 velocity = new Vector2(0,0);
 	final float MASS = (float) 0.045;
 	final long K = 9_000_000_000L;
@@ -29,20 +28,31 @@ public class Player extends Entity
 	{
 		posX = (velocity.x + posX);
 		if(posX < 0)
+		{
 			posX = 0;
+			velocity.set(0, velocity.y);
+		}
 		else if(posX > 600)
+		{
 			posX = 600;
+			velocity.set(0, velocity.y);
+		}
 		this.setX(posX);
 		hitBox.setX(posX);		
 	}
 	private void findNewY ()
 	{
-
 		posY = (velocity.y + posY);
 		if(posY < 0)
+		{
 			posY = 0;
+			velocity.set(velocity.x, 0);
+		}
 		else if(posY > 480)
+		{
 			posY = 480;
+			velocity.set(velocity.x, 0);
+		}
 		this.setY(posY);
 		hitBox.setY(posY);
 	}
@@ -64,6 +74,16 @@ public class Player extends Entity
 //		System.out.println("X velocity: " + velocity.x + "\nY velocity: " + velocity.y);
 		findNewX();
 		findNewY();
+		for(int x = 0; x < SparkFlight.entities.size(); x++)
+		{
+			if(SparkFlight.entities.get(x) instanceof Wall)
+			{
+				if(SparkFlight.plane.getHitbox().overlaps(SparkFlight.entities.get(x).getHitbox()))
+				{
+					SparkFlight.reloadLevel = true;
+				}
+			}
+		}
 	}
 //	private void findNewX ()
 //	{
