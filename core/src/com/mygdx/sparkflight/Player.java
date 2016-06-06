@@ -64,7 +64,7 @@ public class Player extends Entity
 			displacement.nor() // make the vector length 1
 			//scale by k * q * Q / d ^ 2
 			.scl((float)-(K * charges.get(i).charge * charge) / d2);
-			System.out.println("Charge hitbox: " + charges.get(i).getHitbox());
+//			System.out.println("Charge hitbox: " + charges.get(i).getHitbox());
 		}
 		
 		velocity.add(displacement.x / MASS, displacement.y / MASS);

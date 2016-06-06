@@ -5,6 +5,7 @@ import java.util.StringTokenizer;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.assets.AssetManager;
@@ -13,6 +14,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 
 public class SparkFlight extends ApplicationAdapter {
 	public static SpriteBatch batch;
@@ -26,7 +28,7 @@ public class SparkFlight extends ApplicationAdapter {
 	public static Exit exit;
 	public static Wall wall;
 	public static int level = 1;
-	public static boolean changeLevel = true;
+	public static boolean changeLevel = false;
 	public static boolean reloadLevel = false;
 	public static int gameState = 2;//1=mainMenu, 2=game, 3=nextLevel, 4=retryLevel
 	
@@ -39,6 +41,8 @@ public class SparkFlight extends ApplicationAdapter {
 		assets.load("negative.png", Texture.class);
 		assets.load("exit.png", Texture.class);
 		assets.load("wall.png", Texture.class);
+		assets.load("nextLevel.png", Texture.class);
+		assets.load("tryAgain.png", Texture.class);
 		assets.finishLoading();
 		
 		width = 800;
@@ -49,63 +53,28 @@ public class SparkFlight extends ApplicationAdapter {
 		exit = new Exit(0, 0);
 		plane = new Player(0,0,0, "plane");
 		wall = new Wall(0, 0);
-
-		Gdx.input.setInputProcessor(new InputAdapter () {
-			   public boolean touchUp (int x, int y, int pointer, int button) {
-				   if(button == Buttons.LEFT) {
-					   SourceCharge newCharge = new SourceCharge(Gdx.input.getX() - assets.get("positive.png", Texture.class).getWidth() / 2, height - Gdx.input.getY() - assets.get("positive.png", Texture.class).getHeight() / 2, 1);
-					   entities.add(newCharge);
-					   Player.charges.add(newCharge);
-					   return true;
-					}
-					else if(button == Buttons.RIGHT) {
-						SourceCharge newCharge = new SourceCharge(Gdx.input.getX() - assets.get("negative.png", Texture.class).getWidth() / 2, height - Gdx.input.getY() - assets.get("negative.png", Texture.class).getHeight() / 2, -1);
-						entities.add(newCharge);
-						Player.charges.add(newCharge);
-						return true;
-					}
-					return false;
-			   }
-			
-		});
-		
+		loadLevel(level);
 	}
 
 	@Override
 	public void render() 
 	{
-		Gdx.gl.glClearColor(0, 1, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		camera.update();
-		
-		//Makes batch only show what is inside the camera's FOV
-		batch.setProjectionMatrix(camera.combined);
-		batch.begin();
-		batch.draw(assets.get("exit.png", Texture.class), exit.getX(), exit.getY(), exit.getWidth(), exit.getHeight());
-		batch.draw(assets.get("plane.png", Texture.class), plane.getX(), plane.getY(), plane.getWidth(), plane.getHeight());
-		batch.draw(assets.get("wall.png", Texture.class), wall.getX(), wall.getY(), wall.getWidth(), wall.getHeight());
-//		System.out.println("Plane position x: " + plane.getMidPointX());
-//		System.out.println("Plane position y: " + plane.getMidPointY());
-		System.out.println("Exit hitbox: " + exit.getHitbox());
-		System.out.println("Plane hitbox: " + plane.getHitbox());
-		for(int i = 0; i < entities.size(); i++)
+		switch (gameState)
 		{
-			entities.get(i).act();
-			entities.get(i).draw();
+			case 1:
+				mainMenu();
+				break;
+			case 2:
+				game();
+				break;
+			case 3:
+				nextLevel();
+				break;
+			case 4:
+				retryLevel();
+				break;
 		}
 		
-		if(changeLevel)
-		{
-			loadLevel(level);
-		}
-		
-		if(reloadLevel)
-		{
-			loadLevel(level);
-		}
-		
-		batch.end();
 	}
 	
 	public void dispose()
@@ -118,6 +87,7 @@ public class SparkFlight extends ApplicationAdapter {
 	{
 		changeLevel = false;
 		reloadLevel = false;
+		gameState = 2;
 		entities.clear();
 		
 		FileHandle file = Gdx.files.internal("level" + level);
@@ -160,16 +130,115 @@ public class SparkFlight extends ApplicationAdapter {
 	
 	public void game()
 	{
+		Gdx.gl.glClearColor(0, 1, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
+		camera.update();
+		
+		//Makes batch only show what is inside the camera's FOV
+		batch.setProjectionMatrix(camera.combined);
+		batch.begin();
+		for(int i = 0; i < entities.size(); i++)
+		{
+			entities.get(i).act();
+			entities.get(i).draw();
+		}
+		
+		Gdx.input.setInputProcessor(new InputAdapter () {
+			   public boolean touchUp (int x, int y, int pointer, int button) {
+				   if(button == Buttons.LEFT) {
+					   SourceCharge newCharge = new SourceCharge(Gdx.input.getX() - assets.get("positive.png", Texture.class).getWidth() / 2, height - Gdx.input.getY() - assets.get("positive.png", Texture.class).getHeight() / 2, 1);
+					   entities.add(newCharge);
+					   Player.charges.add(newCharge);
+					   return true;
+					}
+					else if(button == Buttons.RIGHT) {
+						SourceCharge newCharge = new SourceCharge(Gdx.input.getX() - assets.get("negative.png", Texture.class).getWidth() / 2, height - Gdx.input.getY() - assets.get("negative.png", Texture.class).getHeight() / 2, -1);
+						entities.add(newCharge);
+						Player.charges.add(newCharge);
+						return true;
+					}
+					return false;
+			   }
+			
+		});
+		
+		if(changeLevel)
+		{
+			 gameState = 3;
+		}
+		
+		if(reloadLevel)
+		{
+			gameState = 4;
+		}
+		
+		batch.end();
 	}
 	
 	public void nextLevel()
 	{
+		changeLevel = false;
+		Gdx.gl.glClearColor(0, 1, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
+		camera.update();
+		
+		//Makes batch only show what is inside the camera's FOV
+		batch.setProjectionMatrix(camera.combined);
+		batch.begin();
+		for(int i = 0; i < entities.size(); i++)
+		{
+			entities.get(i).draw();
+		}
+		batch.draw(assets.get("nextLevel.png", Texture.class), width / 2, height / 2, 128, 96);
+		
+		Gdx.input.setInputProcessor(new InputAdapter ()
+		{
+			public boolean keyDown (int key)
+			{
+				if(key == Input.Keys.SPACE)
+				{
+					loadLevel(level);
+					return true;
+				}
+				return false;
+			}
+		});
+		
+		batch.end();
 	}
 	
 	public void retryLevel()
 	{
+		changeLevel = false;
+		Gdx.gl.glClearColor(0, 1, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
+		camera.update();
+		
+		//Makes batch only show what is inside the camera's FOV
+		batch.setProjectionMatrix(camera.combined);
+		batch.begin();
+		for(int i = 0; i < entities.size(); i++)
+		{
+			entities.get(i).draw();
+		}
+		batch.draw(assets.get("tryAgain.png", Texture.class), width / 2, height / 2, 128, 96);
+		
+		
+		Gdx.input.setInputProcessor(new InputAdapter ()
+		{
+			   public boolean keyDown (int key)
+			   {
+				   if(key == Input.Keys.SPACE)
+				   {
+						   loadLevel(level);
+						   return true;
+				   }
+					return false;
+			   }
+		});
+		batch.end();
 	}
 }
