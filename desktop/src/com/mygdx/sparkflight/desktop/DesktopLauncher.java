@@ -10,6 +10,12 @@ public class DesktopLauncher {
 		config.title = "Spark Puzzle";
 		config.width = 800;
 		config.height = 600;
-		new LwjglApplication(new SparkFlight(), config);
+		try
+		{
+			new LwjglApplication(new SparkFlight(), config);
+		} catch (Throwable t)
+		{
+			t.printStackTrace();
+		}
 	}
 }

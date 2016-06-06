@@ -13,7 +13,6 @@ public class Entity extends Actor
 	float height;
 	double charge;
 	String name;
-	Rectangle hitBox;
 	
 	/**
 	 * Constructor for an Entity
@@ -31,7 +30,14 @@ public class Entity extends Actor
 		name = n;
 		width = SparkFlight.assets.get(name + ".png", Texture.class).getWidth();
 		height = SparkFlight.assets.get(name + ".png", Texture.class).getHeight();
-		hitBox = new Rectangle(posX, posY, width, height);
+	}
+	public void setX(float x)
+	{
+		posX = x;
+	}
+	public void setY(float y)
+	{
+		posY = y;
 	}
 	public float getMidPointX()
 	{
@@ -47,7 +53,7 @@ public class Entity extends Actor
 	}
 	public Rectangle getHitbox()
 	{
-		return hitBox;
+		return new Rectangle(posX, posY, width, height);
 	}
 	public void resize(float newWidth, float newHeight)
 	{

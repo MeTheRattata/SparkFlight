@@ -17,7 +17,6 @@ public class Player extends Entity
 	{
 		super(x, y, c,name);
 		//Size of plane 170 by 100
-		hitBox = new Rectangle(x, y, width, height);
 		charges = new ArrayList<SourceCharge>();
 	}
 	public float getMass ()
@@ -33,18 +32,17 @@ public class Player extends Entity
 		else if(posX > 600)
 			posX = 600;
 		this.setX(posX);
-		hitBox.setX(posX);		
+		getHitbox().setX(posX);		
 	}
 	private void findNewY ()
 	{
-
 		posY = (velocity.y + posY);
 		if(posY < 0)
 			posY = 0;
 		else if(posY > 480)
 			posY = 480;
 		this.setY(posY);
-		hitBox.setY(posY);
+		getHitbox().setY(posY);
 	}
 	
 	public void act()
@@ -62,7 +60,21 @@ public class Player extends Entity
 		
 		velocity.add(displacement.x / MASS, displacement.y / MASS);
 //		System.out.println("X velocity: " + velocity.x + "\nY velocity: " + velocity.y);
+		float oldX = posX;
+		float oldY = posY;
 		findNewX();
 		findNewY();
+		for(int x = 0; x < SparkFlight.entities.size(); x++)
+		{
+			if(SparkFlight.entities.get(x) instanceof Wall)
+			{
+				if(SparkFlight.entities.get(x).getHitbox().overlaps(SparkFlight.plane.getHitbox()))
+				{
+					setX(oldX);
+					setY(oldY);
+					break;
+				}
+			}
+		}
 	}
 }
