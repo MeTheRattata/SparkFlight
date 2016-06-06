@@ -50,9 +50,13 @@ Wall 448 0
 Wall 416 0
 Wall 384 0
 Wall 352 0
+<<<<<<< HEAD
 --
 Exit 352 224
 Wall 416 384
 Wall 384 384
 Wall 352 384
 Wall 448 384
+=======
+Exit 352 224
+>>>>>>> 6f486301818e38ebde2cdbbf2a60a2d5b213bd20

@@ -14,7 +14,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 
 public class SparkFlight extends ApplicationAdapter {
 	public static SpriteBatch batch;
@@ -27,7 +26,7 @@ public class SparkFlight extends ApplicationAdapter {
 	public static AssetManager assets;
 	public static Exit exit;
 	public static Wall wall;
-	public static int level = 7;
+	public static int level = 4;
 	public static boolean changeLevel = true;
 	public static boolean reloadLevel = false;
 	public static int gameState = 2;//1=mainMenu, 2=game, 3=nextLevel, 4=retryLevel

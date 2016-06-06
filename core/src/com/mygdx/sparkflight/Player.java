@@ -71,7 +71,7 @@ public class Player extends Entity
 //		System.out.println("X velocity: " + velocity.x + "\nY velocity: " + velocity.y);
 		findNewX();
 		findNewY();
-		//checks for collition with wall and reloads the level if it is
+		//checks for collision with wall and reloads the level if it is
 		for(int x = 0; x < SparkFlight.entities.size(); x++)
 		{
 			if(SparkFlight.entities.get(x) instanceof Wall)
