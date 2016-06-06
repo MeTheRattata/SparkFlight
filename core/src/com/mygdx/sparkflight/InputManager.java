@@ -17,14 +17,14 @@ public class InputManager
 			public boolean touchUp (int x, int y, int pointer, int button) {
 			   if(button == Buttons.LEFT) 
 			   {
-				   SourceCharge newCharge = new SourceCharge(Gdx.input.getX() - 65, screen.WORLD_HEIGHT - Gdx.input.getY() - 65, 1);
+				   SourceCharge newCharge = new SourceCharge(Gdx.input.getX() - 16, screen.WORLD_HEIGHT - Gdx.input.getY() - 16, 1);
 				   screen.stage.addActor(newCharge);
 				   Player.charges.add(newCharge);
 				   return true;
 				}
 				else if(button == Buttons.RIGHT) 
 				{
-					SourceCharge newCharge = new SourceCharge(Gdx.input.getX() - 65, screen.WORLD_HEIGHT - Gdx.input.getY() - 65, -1);
+					SourceCharge newCharge = new SourceCharge(Gdx.input.getX() - 16, screen.WORLD_HEIGHT - Gdx.input.getY() - 16, -1);
 					screen.stage.addActor(newCharge);
 					Player.charges.add(newCharge);
 					return true;
