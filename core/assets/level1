@@ -1,3 +1,16 @@
-Player 300 300 0.0000000009 plane
-Exit 500 500
-Wall 32 300
+Player 0 0 0.0000000009 plane
+Exit 512 512
+Wall 320 0
+Wall 320 32
+Wall 320 64
+Wall 320 96
+Wall 320 128
+Wall 320 160
+Wall 320 192
+Wall 320 224
+Wall 320 256
+Wall 320 288
+Wall 320 320
+Wall 320 352
+Wall 320 384
+Wall 320 416
