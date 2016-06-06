@@ -28,6 +28,7 @@ public class SparkFlight extends ApplicationAdapter {
 	public static int level = 1;
 	public static boolean changeLevel = true;
 	public static boolean reloadLevel = false;
+	public static int gameState = 2;//1=mainMenu, 2=game, 3=nextLevel, 4=retryLevel
 	
 	@Override
 	public void create() 
@@ -45,20 +46,20 @@ public class SparkFlight extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, width, height);
-		exit = new Exit(450, 450);
-		plane = new Player(150,150,0.0000000009,"plane");
-		wall = new Wall(100,100);
+		exit = new Exit(0, 0);
+		plane = new Player(0,0,0, "plane");
+		wall = new Wall(0, 0);
 
 		Gdx.input.setInputProcessor(new InputAdapter () {
 			   public boolean touchUp (int x, int y, int pointer, int button) {
 				   if(button == Buttons.LEFT) {
-					   SourceCharge newCharge = new SourceCharge(Gdx.input.getX() - 65, height - Gdx.input.getY() - 65, 1);
+					   SourceCharge newCharge = new SourceCharge(Gdx.input.getX() - assets.get("positive.png", Texture.class).getWidth() / 2, height - Gdx.input.getY() - assets.get("positive.png", Texture.class).getHeight() / 2, 1);
 					   entities.add(newCharge);
 					   Player.charges.add(newCharge);
 					   return true;
 					}
 					else if(button == Buttons.RIGHT) {
-						SourceCharge newCharge = new SourceCharge(Gdx.input.getX() - 65, height - Gdx.input.getY() - 65, -1);
+						SourceCharge newCharge = new SourceCharge(Gdx.input.getX() - assets.get("negative.png", Texture.class).getWidth() / 2, height - Gdx.input.getY() - assets.get("negative.png", Texture.class).getHeight() / 2, -1);
 						entities.add(newCharge);
 						Player.charges.add(newCharge);
 						return true;
@@ -82,8 +83,10 @@ public class SparkFlight extends ApplicationAdapter {
 		batch.draw(assets.get("exit.png", Texture.class), exit.getX(), exit.getY(), exit.getWidth(), exit.getHeight());
 		batch.draw(assets.get("plane.png", Texture.class), plane.getX(), plane.getY(), plane.getWidth(), plane.getHeight());
 		batch.draw(assets.get("wall.png", Texture.class), wall.getX(), wall.getY(), wall.getWidth(), wall.getHeight());
-		System.out.println("Plane position x: " + plane.getMidPointX());
-		System.out.println("Plane position y: " + plane.getMidPointY());
+//		System.out.println("Plane position x: " + plane.getMidPointX());
+//		System.out.println("Plane position y: " + plane.getMidPointY());
+		System.out.println("Exit hitbox: " + exit.getHitbox());
+		System.out.println("Plane hitbox: " + plane.getHitbox());
 		for(int i = 0; i < entities.size(); i++)
 		{
 			entities.get(i).act();
@@ -137,14 +140,34 @@ public class SparkFlight extends ApplicationAdapter {
 			{
 				entities.add(new Wall(Float.parseFloat(tokens.nextToken()),
 										Float.parseFloat(tokens.nextToken())));
-			} else if(type.equals("Source"))
-			{
-				SourceCharge charge = new SourceCharge(Float.parseFloat(tokens.nextToken()),
-						Float.parseFloat(tokens.nextToken()),
-						Double.parseDouble(tokens.nextToken()));
-				entities.add(charge);
-				Player.charges.add(charge);
-			}
+			}// else if(type.equals("Source"))
+//			{
+//				SourceCharge charge = new SourceCharge(Float.parseFloat(tokens.nextToken()),
+//						Float.parseFloat(tokens.nextToken()),
+//						Double.parseDouble(tokens.nextToken()));
+//				entities.add(charge);
+//				Player.charges.add(charge);
+//			}
 		}
+	}
+	
+	public void mainMenu()
+	{
+		
+	}
+	
+	public void game()
+	{
+		
+	}
+	
+	public void nextLevel()
+	{
+		
+	}
+	
+	public void retryLevel()
+	{
+		
 	}
 }

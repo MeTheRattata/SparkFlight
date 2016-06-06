@@ -2,7 +2,6 @@ package com.mygdx.sparkflight;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Player extends Entity 
@@ -37,7 +36,6 @@ public class Player extends Entity
 			velocity.set(0, velocity.y);
 		}
 		this.setX(posX);
-		getHitbox().setX(posX);		
 	}
 	private void findNewY ()
 	{
@@ -53,7 +51,6 @@ public class Player extends Entity
 			velocity.set(velocity.x, 0);
 		}
 		this.setY(posY);
-		getHitbox().setY(posY);
 	}
 	
 	public void act()
@@ -61,20 +58,20 @@ public class Player extends Entity
 		Vector2 displacement = new Vector2();
 		for(int i = 0; i < charges.size();i++)
 		{
-			displacement.x = charges.get(i).posX - posX;
-			displacement.y = charges.get(i).posY - posY;
+			displacement.x = charges.get(i).getMidPointX() - getMidPointX();
+			displacement.y = charges.get(i).getMidPointY() - getMidPointY();
 			float d2 = displacement.len2(); // find square distance
 			displacement.nor() // make the vector length 1
 			//scale by k * q * Q / d ^ 2
 			.scl((float)-(K * charges.get(i).charge * charge) / d2);
+			System.out.println("Charge hitbox: " + charges.get(i).getHitbox());
 		}
 		
 		velocity.add(displacement.x / MASS, displacement.y / MASS);
 //		System.out.println("X velocity: " + velocity.x + "\nY velocity: " + velocity.y);
-		float oldX = posX;
-		float oldY = posY;
 		findNewX();
 		findNewY();
+		//checks for collition with wall and reloads the level if it is
 		for(int x = 0; x < SparkFlight.entities.size(); x++)
 		{
 			if(SparkFlight.entities.get(x) instanceof Wall)
@@ -86,28 +83,4 @@ public class Player extends Entity
 			}
 		}
 	}
-//	private void findNewX ()
-//	{
-//		
-//		positionX = (velocity.x + positionX);
-//		if(positionX < 0)
-//			positionX = 0;
-//		else if(positionX > 600)
-//			positionX = 600;
-//		this.setX(positionX);
-//		
-//	}
-//	private void findNewY ()
-//	{
-//		positionY = (velocity.y + positionY);
-//		if(positionY < 0)
-//			positionY = 0;
-//		else if(positionY > 480)
-//			positionY = 480;
-//		this.setY(positionY);
-//	}
-	 public Rectangle getHitBox()
-	 {
-		 return new Rectangle(posX, posY, width, height);
-	 }
 }
