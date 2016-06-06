@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Player extends Entity 
 {
-	//Cordinates for the center of the plane. 
 	Vector2 velocity = new Vector2(0,0);
 	final float MASS = (float) 0.045;
 	final long K = 9_000_000_000L;
@@ -28,9 +27,15 @@ public class Player extends Entity
 	{
 		posX = (velocity.x + posX);
 		if(posX < 0)
+		{
 			posX = 0;
+			velocity.set(0, velocity.y);
+		}
 		else if(posX > 600)
+		{
 			posX = 600;
+			velocity.set(0, velocity.y);
+		}
 		this.setX(posX);
 		getHitbox().setX(posX);		
 	}
@@ -38,9 +43,15 @@ public class Player extends Entity
 	{
 		posY = (velocity.y + posY);
 		if(posY < 0)
+		{
 			posY = 0;
+			velocity.set(velocity.x, 0);
+		}
 		else if(posY > 480)
+		{
 			posY = 480;
+			velocity.set(velocity.x, 0);
+		}
 		this.setY(posY);
 		getHitbox().setY(posY);
 	}
@@ -68,13 +79,35 @@ public class Player extends Entity
 		{
 			if(SparkFlight.entities.get(x) instanceof Wall)
 			{
-				if(SparkFlight.entities.get(x).getHitbox().overlaps(SparkFlight.plane.getHitbox()))
+				if(SparkFlight.plane.getHitbox().overlaps(SparkFlight.entities.get(x).getHitbox()))
 				{
-					setX(oldX);
-					setY(oldY);
-					break;
+					SparkFlight.reloadLevel = true;
 				}
 			}
 		}
 	}
+//	private void findNewX ()
+//	{
+//		
+//		positionX = (velocity.x + positionX);
+//		if(positionX < 0)
+//			positionX = 0;
+//		else if(positionX > 600)
+//			positionX = 600;
+//		this.setX(positionX);
+//		
+//	}
+//	private void findNewY ()
+//	{
+//		positionY = (velocity.y + positionY);
+//		if(positionY < 0)
+//			positionY = 0;
+//		else if(positionY > 480)
+//			positionY = 480;
+//		this.setY(positionY);
+//	}
+	 public Rectangle getHitBox()
+	 {
+		 return new Rectangle(posX, posY, width, height);
+	 }
 }

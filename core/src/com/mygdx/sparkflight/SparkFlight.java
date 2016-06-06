@@ -24,11 +24,13 @@ public class SparkFlight extends ApplicationAdapter {
 	private int height;
 	public static AssetManager assets;
 	public static Exit exit;
+	public static Wall wall;
 	public static int level = 1;
 	public static boolean changeLevel = true;
+	public static boolean reloadLevel = false;
 	
 	@Override
-	public void create () 
+	public void create() 
 	{
 		assets = new AssetManager();
 		assets.load("plane.png", Texture.class);
@@ -43,7 +45,10 @@ public class SparkFlight extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, width, height);
-		
+		exit = new Exit(450, 450);
+		plane = new Player(150,150,0.0000000009,"plane");
+		wall = new Wall(100,100);
+
 		Gdx.input.setInputProcessor(new InputAdapter () {
 			   public boolean touchUp (int x, int y, int pointer, int button) {
 				   if(button == Buttons.LEFT) {
@@ -74,9 +79,11 @@ public class SparkFlight extends ApplicationAdapter {
 		//Makes batch only show what is inside the camera's FOV
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
-		
-//		System.out.println("Plane position x: " + plane.getMidPointX());
-//		System.out.println("Plane position y: " + plane.getMidPointY());
+		batch.draw(assets.get("exit.png", Texture.class), exit.getX(), exit.getY(), exit.getWidth(), exit.getHeight());
+		batch.draw(assets.get("plane.png", Texture.class), plane.getX(), plane.getY(), plane.getWidth(), plane.getHeight());
+		batch.draw(assets.get("wall.png", Texture.class), wall.getX(), wall.getY(), wall.getWidth(), wall.getHeight());
+		System.out.println("Plane position x: " + plane.getMidPointX());
+		System.out.println("Plane position y: " + plane.getMidPointY());
 		for(int i = 0; i < entities.size(); i++)
 		{
 			entities.get(i).act();
@@ -84,6 +91,11 @@ public class SparkFlight extends ApplicationAdapter {
 		}
 		
 		if(changeLevel)
+		{
+			loadLevel(level);
+		}
+		
+		if(reloadLevel)
 		{
 			loadLevel(level);
 		}
@@ -100,6 +112,7 @@ public class SparkFlight extends ApplicationAdapter {
 	public void loadLevel(int level)
 	{
 		changeLevel = false;
+		reloadLevel = false;
 		entities.clear();
 		
 		FileHandle file = Gdx.files.internal("level" + level);
@@ -124,6 +137,13 @@ public class SparkFlight extends ApplicationAdapter {
 			{
 				entities.add(new Wall(Float.parseFloat(tokens.nextToken()),
 										Float.parseFloat(tokens.nextToken())));
+			} else if(type.equals("Source"))
+			{
+				SourceCharge charge = new SourceCharge(Float.parseFloat(tokens.nextToken()),
+						Float.parseFloat(tokens.nextToken()),
+						Double.parseDouble(tokens.nextToken()));
+				entities.add(charge);
+				Player.charges.add(charge);
 			}
 		}
 	}
