@@ -1,0 +1,25 @@
+Player 100 50 0.0000000009 plane
+Wall 0 224 
+Wall 32 224
+Wall 64 224
+Wall 96 224
+Wall 128 224
+Wall 160 224
+Wall 192 224
+Wall 224 224
+Wall 256 224
+Wall 288 224
+Wall 320 224
+Wall 352 224
+--
+Wall 672 224 
+Wall 704 224 
+Wall 736 224
+Wall 768 224
+--  
+Wall 672 448
+Wall 704 448 
+Wall 736 448
+Wall 768 448
+--
+Exit 730 325
