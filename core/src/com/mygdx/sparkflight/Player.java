@@ -43,9 +43,9 @@ public class Player extends Entity
 			posX = 0;
 			velocity.set(0, velocity.y);
 		}
-		else if(posX > SparkFlight.width - SparkFlight.plane.width)
+		else if(posX > SparkFlight.width - width)
 		{
-			posX = SparkFlight.width - SparkFlight.plane.width;
+			posX = SparkFlight.width - width;
 			velocity.set(0, velocity.y);
 		}
 		this.setX(posX);
@@ -63,9 +63,9 @@ public class Player extends Entity
 			posY = 0;
 			velocity.set(velocity.x, 0);
 		}
-		else if(posY > SparkFlight.height - SparkFlight.plane.height)
+		else if(posY > SparkFlight.height - height)
 		{
-			posY = SparkFlight.height - SparkFlight.plane.height;
+			posY = SparkFlight.height - height;
 			velocity.set(velocity.x, 0);
 		}
 		this.setY(posY);
