@@ -14,6 +14,6 @@
 -Wall 320 352
 -Wall 320 384
 -Wall 320 416
-Player 215 255 0.0000000009 plane
+Player 215 255 1 plane
 Source 284 84 1
 Source 284 484 1

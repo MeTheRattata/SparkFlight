@@ -8,7 +8,6 @@ public class Player extends Entity
 {
 	Vector2 velocity = new Vector2(0,0);
 	final float MASS = (float) 0.045;
-	final long K = 9_000_000_000L;
 	public static ArrayList<SourceCharge> charges;
 	
 	public Player(float x, float y, double c, String name) 
@@ -55,21 +54,26 @@ public class Player extends Entity
 	
 	public void act()
 	{
-		Vector2 displacement = new Vector2();
+		Vector2 force = new Vector2();
 		for(int i = 0; i < charges.size();i++)
 		{
-			displacement.x = charges.get(i).getMidPointX() - getMidPointX();
-			System.out.println("Dx: " + displacement.x);
-			displacement.y = charges.get(i).getMidPointY() - getMidPointY();
-			System.out.println("Dy: " + displacement.y);
-			float d2 = displacement.len2(); // find square distance
-			displacement.nor() // make the vector length 1
+			force.x = charges.get(i).getMidPointX() - getMidPointX();
+			force.y = charges.get(i).getMidPointY() - getMidPointY();
+			float d2 = force.len2(); // find square distance
+			force.x /= force.len();
+			force.y /= force.len();
+			System.out.println("Dx: " + force.x);
+			System.out.println("Dy: " + force.y);
 			//scale by k * q * Q / d ^ 2
-			.scl((float)-(K * charges.get(i).charge * charge) / d2);
-			System.out.println("Charge hitbox: " + charges.get(i).getHitbox());
+			//WRONG VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+			//LEAVING NOTE HERE BECAUSE I CAN'T WORK ON IT RIGHT NOW
+			force.scl((float)-(charges.get(i).charge * charge) / d2);
+			System.out.println("kqq/d2: " + (float)-(charges.get(i).charge * charge) / d2);
+			System.out.println("Dx: " + force.x);
+			System.out.println("Dy: " + force.y);
 		}
 		
-		velocity.add(displacement.x / MASS, displacement.y / MASS);
+		velocity.add(force.x / MASS, force.y / MASS);
 //		System.out.println("X velocity: " + velocity.x + "\nY velocity: " + velocity.y);
 		findNewX();
 		findNewY();
