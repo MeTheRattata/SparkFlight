@@ -28,7 +28,7 @@ public class SparkFlight extends ApplicationAdapter {
 	public static AssetManager assets;
 	public static Exit exit;
 	public static Wall wall;
-	public static int level = 1;
+	public static int level = 9;
 	public static boolean changeLevel = true;
 	public static boolean reloadLevel = false;
 	public static Rectangle howToPlay;
@@ -46,7 +46,7 @@ public class SparkFlight extends ApplicationAdapter {
 		assets.load("plane.png", Texture.class);
 		assets.load("positive.png", Texture.class);
 		assets.load("negative.png", Texture.class);
-		assets.load("exit.png", Texture.class);
+		assets.load("window.png", Texture.class);
 		assets.load("wall.png", Texture.class);
 		assets.load("nextLevel.png", Texture.class);
 		assets.load("tryAgain.png", Texture.class);
@@ -95,7 +95,6 @@ public class SparkFlight extends ApplicationAdapter {
 				howToPlay();
 				break;
 		}
-		
 	}
 	
 	/**
