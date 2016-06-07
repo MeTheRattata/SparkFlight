@@ -1,0 +1,64 @@
+Player 300 450 1 plane
+Wall 256 416
+Wall 288 416
+Wall 320 416
+Wall 352 416
+Wall 384 416
+Wall 416 416
+Wall 448 416
+Wall 480 416
+Wall 512 416
+Wall 512 448
+Wall 256 448
+--
+Wall 0 576
+Wall 0 544
+Wall 0 512
+Wall 0 480
+Wall 0 448
+Wall 0 416
+Wall 0 384
+Wall 0 352
+Wall 0 320
+Wall 0 288
+Wall 0 256
+Wall 0 224
+Wall 0 192
+Wall 0 160
+--
+Wall 768 576
+Wall 768 544
+Wall 768 512
+Wall 768 480
+Wall 768 448
+Wall 768 416
+Wall 768 384
+Wall 768 352
+Wall 768 320
+Wall 768 288
+Wall 768 256
+Wall 768 224
+Wall 768 192
+Wall 768 160
+--
+Wall 0 160
+Wall 32 160
+Wall 64 160
+Wall 96 160
+Wall 128 160
+Wall 160 160
+Wall 192 160
+Wall 224 160
+Wall 256 160
+Wall 544 160
+Wall 576 160
+Wall 608 160
+Wall 640 160
+Wall 672 160
+Wall 704 160
+Wall 736 160
+Wall 778 160
+--
+Exit 384 0
+
+
