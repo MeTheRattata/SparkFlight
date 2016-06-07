@@ -12,8 +12,8 @@ public class Player extends Entity
 	
 	/**
 	 * Constructor for a Player objecct
-	 * @param x: float representing the starting x position
-	 * @param y: float representing the starting y position
+	 * @param x: float representing the Player's  starting x position
+	 * @param y: float representing the Player's starting y position
 	 * @param c: double representing the charge
 	 */
 	public Player(float x, float y, double c) 

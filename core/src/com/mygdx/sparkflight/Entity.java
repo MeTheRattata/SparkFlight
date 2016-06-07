@@ -17,10 +17,10 @@ public class Entity extends Actor
 	/**
 	 * Constructor for an Entity
 	 * 
-	 * @param x creates the X pos
-	 * @param y creates the Y pos
-	 * @param c creates the objects charge
-	 * @param name used to create the object's texture
+	 * @param x: float representing the Entity's starting x coordinate
+	 * @param y: float representing the Entity's starting y coordinate
+	 * @param c: double representing the charge
+	 * @param name used to fetch the object's Texture from the AssetManager
 	 */
 	public Entity (float x, float y, double c, String n)
 	{
