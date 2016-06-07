@@ -80,7 +80,6 @@ public class SparkFlight extends ApplicationAdapter {
 				retryLevel();
 				break;
 		}
-		
 	}
 	
 	/**
