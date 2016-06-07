@@ -18,7 +18,7 @@ public class Player extends Entity
 	 */
 	public Player(float x, float y, double c) 
 	{
-		super(x, y, c, "player");
+		super(x, y, c, "plane");
 		//Size of plane 170 by 90
 		charges = new ArrayList<SourceCharge>();
 	}

@@ -58,9 +58,13 @@ public class SparkFlight extends ApplicationAdapter {
 		loadLevel(level);
 	}
 
-	@Override
+	/**
+	 * Determines what should be drawn
+	 */
 	public void render() 
 	{
+		//Determines if a change needs to be made to the game, such as going into the 
+		//main menu or reloading a level.
 		switch (gameState)
 		{
 			case 1:
@@ -79,12 +83,10 @@ public class SparkFlight extends ApplicationAdapter {
 		
 	}
 	
-	public void dispose()
-	{	
-		batch.dispose();
-		assets.dispose();
-	}
-	
+	/**
+	 * Loads a level from a text file
+	 * @param level: number of the level to load
+	 */
 	public void loadLevel(int level)
 	{
 		changeLevel = false;
@@ -97,6 +99,7 @@ public class SparkFlight extends ApplicationAdapter {
 		
 		entities.add(new Entity(0, 0, 0, "background"));
 		
+		//Loads in game objects as defined line by line in the level file selected
 		while(tokens.hasMoreTokens())
 		{
 			String type = tokens.nextToken();
@@ -131,21 +134,25 @@ public class SparkFlight extends ApplicationAdapter {
 		
 	}
 	
+	/**
+	 * Main game loop
+	 */
 	public void game()
 	{
 		Gdx.gl.glClearColor(0, 1, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
 		camera.update();
 		
 		//Makes batch only show what is inside the camera's FOV
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
+		
+		//Only calls Player's Act method because Player is the only Entity which acts
+		plane.act();
+		//Draws all Entity objects in the ArrayList entities
 		for(int i = 0; i < entities.size(); i++)
-		{
-			entities.get(i).act();
 			entities.get(i).draw();
-		}
+		
 		System.out.println("Plane hitbox: " + plane.getHitbox());
 		
 		Gdx.input.setInputProcessor(new InputAdapter () {
@@ -244,5 +251,14 @@ public class SparkFlight extends ApplicationAdapter {
 			   }
 		});
 		batch.end();
+	}
+
+	/**
+	 * Disposes of drawing elements after the game is shut down
+	 */
+	public void dispose()
+	{	
+		batch.dispose();
+		assets.dispose();
 	}
 }
