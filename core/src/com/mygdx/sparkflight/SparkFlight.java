@@ -149,6 +149,7 @@ public class SparkFlight extends ApplicationAdapter {
 		
 		//Only calls Player's Act method because Player is the only Entity which acts
 		plane.act();
+		exit.act();
 		//Draws all Entity objects in the ArrayList entities
 		for(int i = 0; i < entities.size(); i++)
 			entities.get(i).draw();
