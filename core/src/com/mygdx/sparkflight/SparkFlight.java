@@ -21,8 +21,8 @@ public class SparkFlight extends ApplicationAdapter {
 	public static ArrayList<Entity> entities = new ArrayList<Entity>();
 	public OrthographicCamera camera;
 	public static Player plane;
-	private int width;
-	private int height;
+	public static int width;
+	public static int height;
 	public static AssetManager assets;
 	public static Exit exit;
 	public static Wall wall;
@@ -34,6 +34,8 @@ public class SparkFlight extends ApplicationAdapter {
 	@Override
 	public void create() 
 	{
+		//AssetManager: loads all game elements to reduce resources used as a result of each
+		//Entity class having a separate Texture object
 		assets = new AssetManager();
 		assets.load("plane.png", Texture.class);
 		assets.load("positive.png", Texture.class);
@@ -51,7 +53,7 @@ public class SparkFlight extends ApplicationAdapter {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, width, height);
 		exit = new Exit(0, 0);
-		plane = new Player(0,0,0, "plane");
+		plane = new Player(0,0,0);
 		wall = new Wall(0, 0);
 		loadLevel(level);
 	}
@@ -102,8 +104,7 @@ public class SparkFlight extends ApplicationAdapter {
 			{
 				plane = new Player(Float.parseFloat(tokens.nextToken()),
 									Float.parseFloat(tokens.nextToken()),
-									Float.parseFloat(tokens.nextToken()),
-									tokens.nextToken());
+									Float.parseFloat(tokens.nextToken()));
 				entities.add(plane);
 			} else if(type.equals("Exit"))
 			{
