@@ -42,6 +42,7 @@ public class SparkFlight extends ApplicationAdapter {
 		assets.load("wall.png", Texture.class);
 		assets.load("nextLevel.png", Texture.class);
 		assets.load("tryAgain.png", Texture.class);
+		assets.load("background.png", Texture.class);
 		assets.finishLoading();
 		
 		width = 800;
@@ -91,6 +92,8 @@ public class SparkFlight extends ApplicationAdapter {
 		
 		FileHandle file = Gdx.files.internal("level" + level);
 		StringTokenizer tokens = new StringTokenizer(file.readString());
+		
+		entities.add(new Entity(0, 0, 0, "background"));
 		
 		while(tokens.hasMoreTokens())
 		{
