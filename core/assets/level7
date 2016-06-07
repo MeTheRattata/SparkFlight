@@ -1,0 +1,24 @@
+Player 0 50 0.0000000009 plane
+Wall 192 0
+Wall 192 32
+Wall 192 64
+Wall 192 96
+Wall 192 128
+Wall 192 160
+Wall 192 192
+Wall 192 224
+Wall 192 512
+Wall 192 544
+Wall 192 576
+--
+Wall 480 192
+Wall 480 224
+Wall 480 256
+Wall 480 288
+Wall 480 320
+Wall 480 352
+Wall 480 384
+Wall 480 416
+Wall 480 448
+--
+Exit 736 268
