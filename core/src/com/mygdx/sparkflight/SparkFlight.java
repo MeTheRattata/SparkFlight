@@ -21,12 +21,12 @@ public class SparkFlight extends ApplicationAdapter {
 	public static ArrayList<Entity> entities = new ArrayList<Entity>();
 	public OrthographicCamera camera;
 	public static Player plane;
-	private int width;
-	private int height;
+	public static int width;
+	public static int height;
 	public static AssetManager assets;
 	public static Exit exit;
 	public static Wall wall;
-	public static int level = 9;
+	public static int level = 1;
 	public static boolean changeLevel = true;
 	public static boolean reloadLevel = false;
 	public static int gameState = 2;//1=mainMenu, 2=game, 3=nextLevel, 4=retryLevel
@@ -34,6 +34,8 @@ public class SparkFlight extends ApplicationAdapter {
 	@Override
 	public void create() 
 	{
+		//AssetManager: loads all game elements to reduce resources used as a result of each
+		//Entity class having a separate Texture object
 		assets = new AssetManager();
 		assets.load("plane.png", Texture.class);
 		assets.load("positive.png", Texture.class);
@@ -42,6 +44,7 @@ public class SparkFlight extends ApplicationAdapter {
 		assets.load("wall.png", Texture.class);
 		assets.load("nextLevel.png", Texture.class);
 		assets.load("tryAgain.png", Texture.class);
+		assets.load("background.png", Texture.class);
 		assets.finishLoading();
 		
 		width = 800;
@@ -50,14 +53,18 @@ public class SparkFlight extends ApplicationAdapter {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, width, height);
 		exit = new Exit(0, 0);
-		plane = new Player(0,0,0, "plane");
+		plane = new Player(0,0,0);
 		wall = new Wall(0, 0);
 		loadLevel(level);
 	}
 
-	@Override
+	/**
+	 * Determines what should be drawn
+	 */
 	public void render() 
 	{
+		//Determines if a change needs to be made to the game, such as going into the 
+		//main menu or reloading a level.
 		switch (gameState)
 		{
 			case 1:
@@ -76,12 +83,10 @@ public class SparkFlight extends ApplicationAdapter {
 		
 	}
 	
-	public void dispose()
-	{	
-		batch.dispose();
-		assets.dispose();
-	}
-	
+	/**
+	 * Loads a level from a text file
+	 * @param level: number of the level to load
+	 */
 	public void loadLevel(int level)
 	{
 		changeLevel = false;
@@ -92,6 +97,9 @@ public class SparkFlight extends ApplicationAdapter {
 		FileHandle file = Gdx.files.internal("level" + level);
 		StringTokenizer tokens = new StringTokenizer(file.readString());
 		
+		entities.add(new Entity(0, 0, 0, "background"));
+		
+		//Loads in game objects as defined line by line in the level file selected
 		while(tokens.hasMoreTokens())
 		{
 			String type = tokens.nextToken();
@@ -99,8 +107,7 @@ public class SparkFlight extends ApplicationAdapter {
 			{
 				plane = new Player(Float.parseFloat(tokens.nextToken()),
 									Float.parseFloat(tokens.nextToken()),
-									Float.parseFloat(tokens.nextToken()),
-									tokens.nextToken());
+									Float.parseFloat(tokens.nextToken()));
 				entities.add(plane);
 			} else if(type.equals("Exit"))
 			{
@@ -127,21 +134,25 @@ public class SparkFlight extends ApplicationAdapter {
 		
 	}
 	
+	/**
+	 * Main game loop
+	 */
 	public void game()
 	{
 		Gdx.gl.glClearColor(0, 1, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
 		camera.update();
 		
 		//Makes batch only show what is inside the camera's FOV
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
+		
+		//Only calls Player's Act method because Player is the only Entity which acts
+		plane.act();
+		//Draws all Entity objects in the ArrayList entities
 		for(int i = 0; i < entities.size(); i++)
-		{
-			entities.get(i).act();
 			entities.get(i).draw();
-		}
+		
 		System.out.println("Plane hitbox: " + plane.getHitbox());
 		
 		Gdx.input.setInputProcessor(new InputAdapter () {
@@ -240,5 +251,14 @@ public class SparkFlight extends ApplicationAdapter {
 			   }
 		});
 		batch.end();
+	}
+
+	/**
+	 * Disposes of drawing elements after the game is shut down
+	 */
+	public void dispose()
+	{	
+		batch.dispose();
+		assets.dispose();
 	}
 }
