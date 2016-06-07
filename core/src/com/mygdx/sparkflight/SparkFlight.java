@@ -14,6 +14,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 public class SparkFlight extends ApplicationAdapter {
 	public static SpriteBatch batch;
@@ -29,7 +31,11 @@ public class SparkFlight extends ApplicationAdapter {
 	public static int level = 1;
 	public static boolean changeLevel = true;
 	public static boolean reloadLevel = false;
-	public static int gameState = 2;//1=mainMenu, 2=game, 3=nextLevel, 4=retryLevel
+	public static Rectangle howToPlay;
+	public static Rectangle playGame;
+	public static int gameState = 1;//1=mainMenu, 2=game,
+									//3=nextLevel, 4=retryLevel
+									//5=howToPlay
 	
 	@Override
 	public void create() 
@@ -45,6 +51,10 @@ public class SparkFlight extends ApplicationAdapter {
 		assets.load("nextLevel.png", Texture.class);
 		assets.load("tryAgain.png", Texture.class);
 		assets.load("background.png", Texture.class);
+		assets.load("title.png", Texture.class);
+		assets.load("playGame.png", Texture.class);
+		assets.load("howToPlay.png", Texture.class);
+		assets.load("instructions.png", Texture.class);
 		assets.finishLoading();
 		
 		width = 800;
@@ -55,7 +65,9 @@ public class SparkFlight extends ApplicationAdapter {
 		exit = new Exit(0, 0);
 		plane = new Player(0,0,0);
 		wall = new Wall(0, 0);
-		loadLevel(level);
+		howToPlay = new Rectangle(width - 600, height - 270, 400, 90);
+		playGame = new Rectangle(width - 600, height - 180, 400, 90);
+		render();
 	}
 
 	/**
@@ -78,6 +90,9 @@ public class SparkFlight extends ApplicationAdapter {
 				break;
 			case 4:
 				retryLevel();
+				break;
+			case 5:
+				howToPlay();
 				break;
 		}
 		
@@ -131,7 +146,40 @@ public class SparkFlight extends ApplicationAdapter {
 	
 	public void mainMenu()
 	{
+		Gdx.gl.glClearColor(0, 1, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		camera.update();
 		
+		//Makes batch only show what is inside the camera's FOV
+		batch.setProjectionMatrix(camera.combined);
+		batch.begin();
+		
+		batch.draw(assets.get("title.png", Texture.class), width - 600, height - 90, 400, 90);
+		batch.draw(assets.get("playGame.png", Texture.class), width - 600, height - 180, 400, 90);
+		batch.draw(assets.get("howToPlay.png", Texture.class), width - 600, height - 270, 400, 90);
+		
+		Gdx.input.setInputProcessor(new InputAdapter () {
+			   public boolean touchUp (int x, int y, int pointer, int button) {
+				   if(button == Buttons.LEFT)
+				   {
+					   Vector2 click = new Vector2(x, height - y);
+					   if(playGame.contains(click))
+					   {
+						   loadLevel(level);
+						   return true;
+					   } else if(howToPlay.contains(click))
+					   {
+						   gameState = 5;
+						   return true;
+					   }
+					}
+					return false;
+			   }
+			
+		});
+		
+		
+		batch.end();
 	}
 	
 	/**
@@ -153,8 +201,6 @@ public class SparkFlight extends ApplicationAdapter {
 		//Draws all Entity objects in the ArrayList entities
 		for(int i = 0; i < entities.size(); i++)
 			entities.get(i).draw();
-		
-		System.out.println("Plane hitbox: " + plane.getHitbox());
 		
 		Gdx.input.setInputProcessor(new InputAdapter () {
 			   public boolean touchUp (int x, int y, int pointer, int button) {
@@ -251,6 +297,34 @@ public class SparkFlight extends ApplicationAdapter {
 					return false;
 			   }
 		});
+		batch.end();
+	}
+	
+	public void howToPlay()
+	{
+		Gdx.gl.glClearColor(0, 1, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		camera.update();
+		
+		//Makes batch only show what is inside the camera's FOV
+		batch.setProjectionMatrix(camera.combined);
+		batch.begin();
+		
+		batch.draw(assets.get("instructions.png", Texture.class), 0, 0, 800, 600);
+		
+		Gdx.input.setInputProcessor(new InputAdapter ()
+		{
+			public boolean keyDown (int key)
+			{
+				if(key == Input.Keys.SPACE)
+				{
+					gameState = 1;
+					return true;
+				}
+				return false;
+			}
+		});
+		
 		batch.end();
 	}
 
