@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Buttons;
@@ -14,6 +15,12 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class SparkFlight extends ApplicationAdapter {
 	public static SpriteBatch batch;
@@ -29,7 +36,8 @@ public class SparkFlight extends ApplicationAdapter {
 	public static int level = 1;
 	public static boolean changeLevel = true;
 	public static boolean reloadLevel = false;
-	public static int gameState = 2;//1=mainMenu, 2=game, 3=nextLevel, 4=retryLevel
+	public static int gameState = 1;//1=mainMenu, 2=game, 3=nextLevel, 4=retryLevel
+	private Skin skin;
 	
 	@Override
 	public void create() 
@@ -52,6 +60,7 @@ public class SparkFlight extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, width, height);
+		skin = new Skin(Gdx.files.internal("uiskin.json"));
 		exit = new Exit(0, 0);
 		plane = new Player(0,0,0);
 		wall = new Wall(0, 0);
@@ -68,7 +77,7 @@ public class SparkFlight extends ApplicationAdapter {
 		switch (gameState)
 		{
 			case 1:
-				mainMenu();
+				mainMenu2();
 				break;
 			case 2:
 				game();
