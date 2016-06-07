@@ -40,7 +40,7 @@ public class SparkFlight extends ApplicationAdapter {
 		assets.load("plane.png", Texture.class);
 		assets.load("positive.png", Texture.class);
 		assets.load("negative.png", Texture.class);
-		assets.load("exit.png", Texture.class);
+		assets.load("window.png", Texture.class);
 		assets.load("wall.png", Texture.class);
 		assets.load("nextLevel.png", Texture.class);
 		assets.load("tryAgain.png", Texture.class);
