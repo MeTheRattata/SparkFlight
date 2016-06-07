@@ -26,7 +26,7 @@ public class SparkFlight extends ApplicationAdapter {
 	public static AssetManager assets;
 	public static Exit exit;
 	public static Wall wall;
-	public static int level = 4;
+	public static int level = 1;
 	public static boolean changeLevel = true;
 	public static boolean reloadLevel = false;
 	public static int gameState = 2;//1=mainMenu, 2=game, 3=nextLevel, 4=retryLevel
@@ -111,14 +111,14 @@ public class SparkFlight extends ApplicationAdapter {
 			{
 				entities.add(new Wall(Float.parseFloat(tokens.nextToken()),
 										Float.parseFloat(tokens.nextToken())));
-			}// else if(type.equals("Source"))
-//			{
-//				SourceCharge charge = new SourceCharge(Float.parseFloat(tokens.nextToken()),
-//						Float.parseFloat(tokens.nextToken()),
-//						Double.parseDouble(tokens.nextToken()));
-//				entities.add(charge);
-//				Player.charges.add(charge);
-//			}
+			} else if(type.equals("Source"))
+			{
+				SourceCharge charge = new SourceCharge(Float.parseFloat(tokens.nextToken()),
+						Float.parseFloat(tokens.nextToken()),
+						Double.parseDouble(tokens.nextToken()));
+				entities.add(charge);
+				Player.charges.add(charge);
+			}
 		}
 	}
 	
@@ -142,6 +142,7 @@ public class SparkFlight extends ApplicationAdapter {
 			entities.get(i).act();
 			entities.get(i).draw();
 		}
+		System.out.println("Plane hitbox: " + plane.getHitbox());
 		
 		Gdx.input.setInputProcessor(new InputAdapter () {
 			   public boolean touchUp (int x, int y, int pointer, int button) {

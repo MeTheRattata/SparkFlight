@@ -1,16 +1,19 @@
-Player 0 0 0.0000000009 plane
-Exit 512 512
-Wall 320 0
-Wall 320 32
-Wall 320 64
-Wall 320 96
-Wall 320 128
-Wall 320 160
-Wall 320 192
-Wall 320 224
-Wall 320 256
-Wall 320 288
-Wall 320 320
-Wall 320 352
-Wall 320 384
-Wall 320 416
+-Player 0 0 0.0000000009 plane
+-Exit 512 512
+-Wall 320 0
+-Wall 320 32
+-Wall 320 64
+-Wall 320 96
+-Wall 320 128
+-Wall 320 160
+-Wall 320 192
+-Wall 320 224
+-Wall 320 256
+-Wall 320 288
+-Wall 320 320
+-Wall 320 352
+-Wall 320 384
+-Wall 320 416
+Player 215 255 0.0000000009 plane
+Source 284 84 1
+Source 284 484 1

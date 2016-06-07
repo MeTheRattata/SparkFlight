@@ -14,7 +14,7 @@ public class Player extends Entity
 	public Player(float x, float y, double c, String name) 
 	{
 		super(x, y, c,name);
-		//Size of plane 170 by 100
+		//Size of plane 170 by 90
 		charges = new ArrayList<SourceCharge>();
 	}
 	public float getMass ()
@@ -59,12 +59,14 @@ public class Player extends Entity
 		for(int i = 0; i < charges.size();i++)
 		{
 			displacement.x = charges.get(i).getMidPointX() - getMidPointX();
+			System.out.println("Dx: " + displacement.x);
 			displacement.y = charges.get(i).getMidPointY() - getMidPointY();
+			System.out.println("Dy: " + displacement.y);
 			float d2 = displacement.len2(); // find square distance
 			displacement.nor() // make the vector length 1
 			//scale by k * q * Q / d ^ 2
 			.scl((float)-(K * charges.get(i).charge * charge) / d2);
-//			System.out.println("Charge hitbox: " + charges.get(i).getHitbox());
+			System.out.println("Charge hitbox: " + charges.get(i).getHitbox());
 		}
 		
 		velocity.add(displacement.x / MASS, displacement.y / MASS);
