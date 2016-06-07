@@ -55,22 +55,22 @@ public class Player extends Entity
 	public void act()
 	{
 		Vector2 force = new Vector2();
+		Vector2 temp = new Vector2();
+		Vector2 partial = new Vector2();
 		for(int i = 0; i < charges.size();i++)
 		{
-			force.x = charges.get(i).getMidPointX() - getMidPointX();
-			force.y = charges.get(i).getMidPointY() - getMidPointY();
-			float d2 = force.len2(); // find square distance
-			force.x /= force.len();
-			force.y /= force.len();
-			System.out.println("Dx: " + force.x);
-			System.out.println("Dy: " + force.y);
+			temp.x = charges.get(i).getMidPointX() - getMidPointX();
+			temp.y = charges.get(i).getMidPointY() - getMidPointY();
+			float d2 = temp.len2(); // find square distance
+			temp.x /= temp.len();
+			temp.y /= temp.len();
+			System.out.println("Force before: " + temp);
 			//scale by k * q * Q / d ^ 2
-			//WRONG VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-			//LEAVING NOTE HERE BECAUSE I CAN'T WORK ON IT RIGHT NOW
-			force.scl((float)-(charges.get(i).charge * charge) / d2);
-			System.out.println("kqq/d2: " + (float)-(charges.get(i).charge * charge) / d2);
-			System.out.println("Dx: " + force.x);
-			System.out.println("Dy: " + force.y);
+			partial = temp;
+			partial.scl((float)-(charges.get(i).charge * charge) / d2);
+			System.out.println("Part to be added: " + partial);
+			force.add(partial);
+			System.out.println("Force after: " + force);
 		}
 		
 		velocity.add(force.x / MASS, force.y / MASS);
