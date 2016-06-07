@@ -111,14 +111,14 @@ public class SparkFlight extends ApplicationAdapter {
 			{
 				entities.add(new Wall(Float.parseFloat(tokens.nextToken()),
 										Float.parseFloat(tokens.nextToken())));
-			}// else if(type.equals("Source"))
-//			{
-//				SourceCharge charge = new SourceCharge(Float.parseFloat(tokens.nextToken()),
-//						Float.parseFloat(tokens.nextToken()),
-//						Double.parseDouble(tokens.nextToken()));
-//				entities.add(charge);
-//				Player.charges.add(charge);
-//			}
+			} else if(type.equals("Source"))
+			{
+				SourceCharge charge = new SourceCharge(Float.parseFloat(tokens.nextToken()),
+						Float.parseFloat(tokens.nextToken()),
+						Double.parseDouble(tokens.nextToken()));
+				entities.add(charge);
+				Player.charges.add(charge);
+			}
 		}
 	}
 	
@@ -142,6 +142,7 @@ public class SparkFlight extends ApplicationAdapter {
 			entities.get(i).act();
 			entities.get(i).draw();
 		}
+		System.out.println("Plane hitbox: " + plane.getHitbox());
 		
 		Gdx.input.setInputProcessor(new InputAdapter () {
 			   public boolean touchUp (int x, int y, int pointer, int button) {
