@@ -34,6 +34,8 @@ public class SparkFlight extends ApplicationAdapter {
 	@Override
 	public void create() 
 	{
+		//AssetManager: loads all game elements to reduce resources used as a result of each
+		//Entity class having a separate Texture object
 		assets = new AssetManager();
 		assets.load("plane.png", Texture.class);
 		assets.load("positive.png", Texture.class);
@@ -42,6 +44,7 @@ public class SparkFlight extends ApplicationAdapter {
 		assets.load("wall.png", Texture.class);
 		assets.load("nextLevel.png", Texture.class);
 		assets.load("tryAgain.png", Texture.class);
+		assets.load("background.png", Texture.class);
 		assets.finishLoading();
 		
 		width = 800;
@@ -50,7 +53,7 @@ public class SparkFlight extends ApplicationAdapter {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, width, height);
 		exit = new Exit(0, 0);
-		plane = new Player(0,0,0, "plane");
+		plane = new Player(0,0,0);
 		wall = new Wall(0, 0);
 		loadLevel(level);
 	}
@@ -92,6 +95,8 @@ public class SparkFlight extends ApplicationAdapter {
 		FileHandle file = Gdx.files.internal("level" + level);
 		StringTokenizer tokens = new StringTokenizer(file.readString());
 		
+		entities.add(new Entity(0, 0, 0, "background"));
+		
 		while(tokens.hasMoreTokens())
 		{
 			String type = tokens.nextToken();
@@ -99,8 +104,7 @@ public class SparkFlight extends ApplicationAdapter {
 			{
 				plane = new Player(Float.parseFloat(tokens.nextToken()),
 									Float.parseFloat(tokens.nextToken()),
-									Float.parseFloat(tokens.nextToken()),
-									tokens.nextToken());
+									Float.parseFloat(tokens.nextToken()));
 				entities.add(plane);
 			} else if(type.equals("Exit"))
 			{
