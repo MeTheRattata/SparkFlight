@@ -21,8 +21,8 @@ public class SparkFlight extends ApplicationAdapter {
 	public static ArrayList<Entity> entities = new ArrayList<Entity>();
 	public OrthographicCamera camera;
 	public static Player plane;
-	private int width;
-	private int height;
+	public static int width;
+	public static int height;
 	public static AssetManager assets;
 	public static Exit exit;
 	public static Wall wall;

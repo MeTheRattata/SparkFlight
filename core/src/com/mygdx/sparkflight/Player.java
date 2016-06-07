@@ -29,9 +29,9 @@ public class Player extends Entity
 			posX = 0;
 			velocity.set(0, velocity.y);
 		}
-		else if(posX > 600)
+		else if(posX > SparkFlight.width - SparkFlight.plane.width)
 		{
-			posX = 600;
+			posX = SparkFlight.width - SparkFlight.plane.width;
 			velocity.set(0, velocity.y);
 		}
 		this.setX(posX);
@@ -44,9 +44,9 @@ public class Player extends Entity
 			posY = 0;
 			velocity.set(velocity.x, 0);
 		}
-		else if(posY > 480)
+		else if(posY > SparkFlight.height - SparkFlight.plane.height)
 		{
-			posY = 480;
+			posY = SparkFlight.height - SparkFlight.plane.height;
 			velocity.set(velocity.x, 0);
 		}
 		this.setY(posY);
@@ -64,13 +64,10 @@ public class Player extends Entity
 			float d2 = temp.len2(); // find square distance
 			temp.x /= temp.len();
 			temp.y /= temp.len();
-			System.out.println("Force before: " + temp);
 			//scale by k * q * Q / d ^ 2
 			partial = temp;
 			partial.scl((float)-(charges.get(i).charge * charge) / d2);
-			System.out.println("Part to be added: " + partial);
 			force.add(partial);
-			System.out.println("Force after: " + force);
 		}
 		
 		velocity.add(force.x / MASS, force.y / MASS);
