@@ -29,7 +29,7 @@ public class SparkFlight extends ApplicationAdapter {
 	public static AssetManager assets;
 	public static Exit exit;
 	public static Wall wall;
-	public static int level = 12;
+	public static int level = 1;
 	public static boolean changeLevel = true;
 	public static boolean reloadLevel = false;
 	public static Rectangle howToPlay;
@@ -44,14 +44,14 @@ public class SparkFlight extends ApplicationAdapter {
 		//AssetManager: loads all game elements to reduce resources used as a result of each
 		//Entity class having a separate Texture object
 		assets = new AssetManager();
-		assets.load("plane.png", Texture.class);
+		assets.load("ball.png", Texture.class);
 		assets.load("positive.png", Texture.class);
 		assets.load("negative.png", Texture.class);
-		assets.load("exit.png", Texture.class);
-		assets.load("wall.png", Texture.class);
+		assets.load("exit2.png", Texture.class);
+		assets.load("wall2.png", Texture.class);
 		assets.load("nextLevel.png", Texture.class);
 		assets.load("tryAgain.png", Texture.class);
-		assets.load("background.png", Texture.class);
+		assets.load("background2.png", Texture.class);
 		assets.load("title.png", Texture.class);
 		assets.load("playGame.png", Texture.class);
 		assets.load("howToPlay.png", Texture.class);
@@ -112,7 +112,7 @@ public class SparkFlight extends ApplicationAdapter {
 		FileHandle file = Gdx.files.internal("level" + level);
 		StringTokenizer tokens = new StringTokenizer(file.readString());
 		
-		entities.add(new Entity(0, 0, 0, "background"));
+		entities.add(new Entity(0, 0, 0, "background2"));
 		
 		//Loads in game objects as defined line by line in the level file selected
 		while(tokens.hasMoreTokens())

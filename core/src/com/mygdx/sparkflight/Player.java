@@ -2,6 +2,10 @@ package com.mygdx.sparkflight;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Player extends Entity 
@@ -18,7 +22,7 @@ public class Player extends Entity
 	 */
 	public Player(float x, float y, double c) 
 	{
-		super(x, y, c, "plane");
+		super(x, y, c, "ball");
 		//Size of plane 170 by 90
 		charges = new ArrayList<SourceCharge>();
 	}
@@ -70,7 +74,6 @@ public class Player extends Entity
 		}
 		this.setY(posY);
 	}
-	
 	/**
 	 * Act method for Player:
 	 * calculates force on Player from all SourceCharge objects and adjusts player's position
@@ -101,7 +104,7 @@ public class Player extends Entity
 		{
 			if(SparkFlight.entities.get(x) instanceof Wall)
 			{
-				if(SparkFlight.plane.getHitbox().overlaps(SparkFlight.entities.get(x).getHitbox()))
+				if(getHitbox().overlaps(SparkFlight.entities.get(x).getHitbox()))
 				{
 					SparkFlight.reloadLevel = true;
 				}
