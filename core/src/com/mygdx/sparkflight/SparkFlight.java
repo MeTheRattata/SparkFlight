@@ -57,6 +57,7 @@ public class SparkFlight extends ApplicationAdapter
 		assets.load("playGame.png", Texture.class);
 		assets.load("howToPlay.png", Texture.class);
 		assets.load("instructions.png", Texture.class);
+		assets.load("names.png", Texture.class);
 		assets.finishLoading();
 		
 		width = 800;
@@ -158,6 +159,7 @@ public class SparkFlight extends ApplicationAdapter
 		batch.draw(assets.get("title.png", Texture.class), width - 600, height - 180, 400, 90);
 		batch.draw(assets.get("playGame.png", Texture.class), width - 600, height - 270, 400, 90);
 		batch.draw(assets.get("howToPlay.png", Texture.class), width - 600, height - 360, 400, 90);
+		batch.draw(assets.get("names.png", Texture.class), width - 600, height - 540, 400, 180);
 		
 		Gdx.input.setInputProcessor(new InputAdapter ()
 		{
