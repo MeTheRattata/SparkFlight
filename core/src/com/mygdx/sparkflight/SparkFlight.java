@@ -28,7 +28,7 @@ public class SparkFlight extends ApplicationAdapter {
 	public static AssetManager assets;
 	public static Exit exit;
 	public static Wall wall;
-	public static int level = 13;
+	public static int level = 14;
 	public static boolean changeLevel = true;
 	public static boolean reloadLevel = false;
 	public static Rectangle howToPlay;
