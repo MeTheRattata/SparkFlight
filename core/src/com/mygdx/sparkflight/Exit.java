@@ -1,5 +1,6 @@
 package com.mygdx.sparkflight;
 
+
 public class Exit extends Entity 
 {
 	public Exit(float x, float y) 
@@ -9,10 +10,16 @@ public class Exit extends Entity
 	
 	public void act()
 	{
-		if(SparkFlight.plane.getHitbox().overlaps(SparkFlight.exit.getHitbox()))
+		if(SparkFlight.exit.getHitbox().overlaps(SparkFlight.plane.getHitbox()))
 		{
 			SparkFlight.level++;
-			SparkFlight.changeLevel = true;
+			if(SparkFlight.level == 16)
+			{
+				SparkFlight.gameState = 6;
+			} else
+			{
+				SparkFlight.changeLevel = true;
+			}
 		}
 	}
 }

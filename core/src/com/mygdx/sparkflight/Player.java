@@ -2,11 +2,16 @@ package com.mygdx.sparkflight;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 
 public class Player extends Entity 
 {
 	Vector2 velocity = new Vector2(0,0);
+	static Circle hitBox;
 	final float MASS = (float) 0.045;
 	public static ArrayList<SourceCharge> charges;
 	
@@ -19,7 +24,8 @@ public class Player extends Entity
 	public Player(float x, float y, double c) 
 	{
 		super(x, y, c, "ball2");
-		//Size of plane 170 by 90
+		//Size of ball 90 by 90
+		hitBox = new Circle(x + 45, y + 45, 45);
 		charges = new ArrayList<SourceCharge>();
 	}
 	/**
@@ -48,6 +54,7 @@ public class Player extends Entity
 			posX = SparkFlight.width - width;
 			velocity.set(0, velocity.y);
 		}
+		hitBox.setX(posX + 45);
 		this.setX(posX);
 	}
 	/**
@@ -68,6 +75,7 @@ public class Player extends Entity
 			posY = SparkFlight.height - height;
 			velocity.set(velocity.x, 0);
 		}
+		hitBox.setY(posY + 45);
 		this.setY(posY);
 	}
 	/**
@@ -92,15 +100,21 @@ public class Player extends Entity
 			force.add(partial);
 		}
 		
-		velocity.add(force.x / MASS, force.y / MASS);
-		findNewX();
-		findNewY();
+		
+		
+		if(!Gdx.input.isKeyPressed(Keys.SPACE))
+		{
+			velocity.add(force.x / MASS, force.y / MASS);
+			findNewX();
+			findNewY();
+		}
+		
 		//checks for collision with wall and reloads the level if it is
 		for(int x = 0; x < SparkFlight.entities.size(); x++)
 		{
 			if(SparkFlight.entities.get(x) instanceof Wall)
 			{
-				if(getHitbox().overlaps(SparkFlight.entities.get(x).getHitbox()))
+				if(Intersector.overlaps(hitBox, SparkFlight.entities.get(x).getHitbox()))
 				{
 					SparkFlight.reloadLevel = true;
 				}
