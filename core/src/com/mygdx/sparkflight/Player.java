@@ -108,10 +108,6 @@ public class Player extends Entity
 			findNewX();
 			findNewY();
 		}
-		else
-		{
-			
-		}
 		
 		//checks for collision with wall and reloads the level if it is
 		for(int x = 0; x < SparkFlight.entities.size(); x++)

@@ -29,7 +29,7 @@ public class SparkFlight extends ApplicationAdapter
 	public static AssetManager assets;
 	public static Exit exit;
 	public static Wall wall;
-	public static int level = 15;
+	public static int level = 1;
 	public static boolean changeLevel = true;
 	public static boolean reloadLevel = false;
 	public static Rectangle howToPlay;
@@ -57,6 +57,7 @@ public class SparkFlight extends ApplicationAdapter
 		assets.load("howToPlay.png", Texture.class);
 		assets.load("instructions.png", Texture.class);
 		assets.load("names.png", Texture.class);
+		assets.load("gameOver.png", Texture.class);
 		assets.finishLoading();
 		
 		width = 800;
@@ -95,6 +96,9 @@ public class SparkFlight extends ApplicationAdapter
 				break;
 			case 5:
 				howToPlay();
+				break;
+			case 6:
+				gameOver();
 				break;
 		}
 	}
@@ -191,6 +195,7 @@ public class SparkFlight extends ApplicationAdapter
 	 */
 	public void game()
 	{
+		changeLevel = false;
 		Gdx.gl.glClearColor(0, 1, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		camera.update();
@@ -349,6 +354,9 @@ public class SparkFlight extends ApplicationAdapter
 				if(key == Input.Keys.SPACE)
 				{
 					gameState = 1;
+					level = 1;
+					changeLevel = true;
+					reloadLevel = false;
 					return true;
 				}
 				return false;

@@ -1,6 +1,5 @@
 package com.mygdx.sparkflight;
 
-import com.badlogic.gdx.math.Intersector;
 
 public class Exit extends Entity 
 {
@@ -11,16 +10,16 @@ public class Exit extends Entity
 	
 	public void act()
 	{
-		if(Intersector.overlaps(Player.hitBox, SparkFlight.exit.getHitbox()));
+		if(SparkFlight.exit.getHitbox().overlaps(SparkFlight.plane.getHitbox()))
 		{
-			System.out.println(Player.hitBox);
-			System.out.println(SparkFlight.exit.getHitbox());
 			SparkFlight.level++;
 			if(SparkFlight.level == 16)
 			{
 				SparkFlight.gameState = 6;
+			} else
+			{
+				SparkFlight.changeLevel = true;
 			}
-			SparkFlight.changeLevel = true;
 		}
 	}
 }
