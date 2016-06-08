@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Buttons;
@@ -37,7 +36,7 @@ public class SparkFlight extends ApplicationAdapter
 	public static Rectangle playGame;
 	public static int gameState = 1;//1=mainMenu, 2=game,
 									//3=nextLevel, 4=retryLevel
-									//5=howToPlay
+									//5=howToPlay, 6=gameOver
 	
 	@Override
 	public void create() 
@@ -195,7 +194,6 @@ public class SparkFlight extends ApplicationAdapter
 		Gdx.gl.glClearColor(0, 1, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		camera.update();
-		
 		//Makes batch only show what is inside the camera's FOV
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
@@ -227,7 +225,6 @@ public class SparkFlight extends ApplicationAdapter
 					}
 					return false;
 			   }
-			
 		});
 		
 		if(changeLevel)
@@ -320,6 +317,30 @@ public class SparkFlight extends ApplicationAdapter
 		batch.begin();
 		
 		batch.draw(assets.get("instructions.png", Texture.class), 0, 0, 800, 600);
+		
+		Gdx.input.setInputProcessor(new InputAdapter ()
+		{
+			public boolean keyDown (int key)
+			{
+				if(key == Input.Keys.SPACE)
+				{
+					gameState = 1;
+					return true;
+				}
+				return false;
+			}
+		});
+		
+		batch.end();
+	}
+	
+	public void gameOver()
+	{
+		//Makes batch only show what is inside the camera's FOV
+		batch.setProjectionMatrix(camera.combined);
+		batch.begin();
+		
+		batch.draw(assets.get("gameOver.png", Texture.class), 0, 0, 800, 600);
 		
 		Gdx.input.setInputProcessor(new InputAdapter ()
 		{
