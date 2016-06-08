@@ -1,0 +1,42 @@
+Player 0 0 1 plane
+Exit 350 300
+Wall 320 0
+Wall 320 32
+Wall 320 64
+Wall 320 96
+Wall 320 128
+Wall 320 160
+Wall 320 192
+Wall 320 224
+Wall 320 256
+Wall 320 288
+Wall 320 320
+Wall 320 352
+Wall 320 384
+Wall 320 416
+Source 23 234 -1
+Source 335 234 -1
+Source 535 234 -1
+Source 394 234 -1
+Source 435 434 -1
+Source 435 334 -1
+Source 235 34 -1
+Source 246 100 -1
+Source 235 220 -1
+Source 670 484 -1
+Source 478 234 -1
+Source 335 234 -1
+Source 567 134 -1
+Source 423 234 -1
+Source 535 114 -1
+Source 535 134 -1
+Source 535 334 -1
+Source 335 234 -1
+Source 535 134 -1
+Source 535 234 -1
+Source 125 2234 -1
+Source 215 234 -1
+Source 245 334 -1
+Source 135 434 -1
+Source 435 534 -1
+Source 335 434 -1

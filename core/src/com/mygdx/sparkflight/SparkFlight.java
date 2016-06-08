@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Buttons;
@@ -17,7 +18,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public class SparkFlight extends ApplicationAdapter {
+public class SparkFlight extends ApplicationAdapter
+{
 	public static SpriteBatch batch;
 	//ArrayList of ALL Actors for drawing and acting purposes
 	public static ArrayList<Entity> entities = new ArrayList<Entity>();
@@ -28,7 +30,7 @@ public class SparkFlight extends ApplicationAdapter {
 	public static AssetManager assets;
 	public static Exit exit;
 	public static Wall wall;
-	public static int level = 14;
+	public static int level = 15;
 	public static boolean changeLevel = true;
 	public static boolean reloadLevel = false;
 	public static Rectangle howToPlay;
@@ -43,18 +45,19 @@ public class SparkFlight extends ApplicationAdapter {
 		//AssetManager: loads all game elements to reduce resources used as a result of each
 		//Entity class having a separate Texture object
 		assets = new AssetManager();
-		assets.load("plane.png", Texture.class);
+		assets.load("ball2.png", Texture.class);
 		assets.load("positive.png", Texture.class);
 		assets.load("negative.png", Texture.class);
-		assets.load("exit.png", Texture.class);
-		assets.load("wall.png", Texture.class);
+		assets.load("exit2.png", Texture.class);
+		assets.load("wall2.png", Texture.class);
 		assets.load("nextLevel.png", Texture.class);
 		assets.load("tryAgain.png", Texture.class);
-		assets.load("background.png", Texture.class);
+		assets.load("background2.png", Texture.class);
 		assets.load("title.png", Texture.class);
 		assets.load("playGame.png", Texture.class);
 		assets.load("howToPlay.png", Texture.class);
 		assets.load("instructions.png", Texture.class);
+		assets.load("names.png", Texture.class);
 		assets.finishLoading();
 		
 		width = 800;
@@ -65,8 +68,8 @@ public class SparkFlight extends ApplicationAdapter {
 		exit = new Exit(0, 0);
 		plane = new Player(0,0,0);
 		wall = new Wall(0, 0);
-		howToPlay = new Rectangle(width - 600, height - 270, 400, 90);
-		playGame = new Rectangle(width - 600, height - 180, 400, 90);
+		howToPlay = new Rectangle(width - 600, height - 360, 400, 90);
+		playGame = new Rectangle(width - 600, height - 270, 400, 90);
 		render();
 	}
 
@@ -111,7 +114,7 @@ public class SparkFlight extends ApplicationAdapter {
 		FileHandle file = Gdx.files.internal("level" + level);
 		StringTokenizer tokens = new StringTokenizer(file.readString());
 		
-		entities.add(new Entity(0, 0, 0, "background"));
+		entities.add(new Entity(0, 0, 0, "background2"));
 		
 		//Loads in game objects as defined line by line in the level file selected
 		while(tokens.hasMoreTokens())
@@ -153,12 +156,15 @@ public class SparkFlight extends ApplicationAdapter {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		
-		batch.draw(assets.get("title.png", Texture.class), width - 600, height - 90, 400, 90);
-		batch.draw(assets.get("playGame.png", Texture.class), width - 600, height - 180, 400, 90);
-		batch.draw(assets.get("howToPlay.png", Texture.class), width - 600, height - 270, 400, 90);
+		batch.draw(assets.get("title.png", Texture.class), width - 600, height - 180, 400, 90);
+		batch.draw(assets.get("playGame.png", Texture.class), width - 600, height - 270, 400, 90);
+		batch.draw(assets.get("howToPlay.png", Texture.class), width - 600, height - 360, 400, 90);
+		batch.draw(assets.get("names.png", Texture.class), width - 600, height - 540, 400, 180);
 		
-		Gdx.input.setInputProcessor(new InputAdapter () {
-			   public boolean touchUp (int x, int y, int pointer, int button) {
+		Gdx.input.setInputProcessor(new InputAdapter ()
+		{
+			   public boolean touchUp (int x, int y, int pointer, int button)
+			   {
 				   if(button == Buttons.LEFT)
 				   {
 					   Vector2 click = new Vector2(x, height - y);
@@ -201,15 +207,19 @@ public class SparkFlight extends ApplicationAdapter {
 		for(int i = 0; i < entities.size(); i++)
 			entities.get(i).draw();
 		
-		Gdx.input.setInputProcessor(new InputAdapter () {
-			   public boolean touchUp (int x, int y, int pointer, int button) {
-				   if(button == Buttons.LEFT) {
+		Gdx.input.setInputProcessor(new InputAdapter ()
+		{
+			   public boolean touchUp (int x, int y, int pointer, int button)
+			   {
+				   if(button == Buttons.LEFT)
+				   {
 					   SourceCharge newCharge = new SourceCharge(Gdx.input.getX() - assets.get("positive.png", Texture.class).getWidth() / 2, height - Gdx.input.getY() - assets.get("positive.png", Texture.class).getHeight() / 2, 1);
 					   entities.add(newCharge);
 					   Player.charges.add(newCharge);
 					   return true;
 					}
-					else if(button == Buttons.RIGHT) {
+					else if(button == Buttons.RIGHT)
+					{
 						SourceCharge newCharge = new SourceCharge(Gdx.input.getX() - assets.get("negative.png", Texture.class).getWidth() / 2, height - Gdx.input.getY() - assets.get("negative.png", Texture.class).getHeight() / 2, -1);
 						entities.add(newCharge);
 						Player.charges.add(newCharge);
