@@ -10,6 +10,6 @@ public class Wall extends Entity
 	 */
 	public Wall(float x, float y)
 	{
-		super(x, y, 0, "wall2");
+		super(x, y, 0, "wall");
 	}
 }

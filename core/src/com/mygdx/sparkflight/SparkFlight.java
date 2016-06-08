@@ -44,14 +44,14 @@ public class SparkFlight extends ApplicationAdapter
 		//AssetManager: loads all game elements to reduce resources used as a result of each
 		//Entity class having a separate Texture object
 		assets = new AssetManager();
-		assets.load("ball2.png", Texture.class);
+		assets.load("ball.png", Texture.class);
 		assets.load("positive.png", Texture.class);
 		assets.load("negative.png", Texture.class);
-		assets.load("exit2.png", Texture.class);
-		assets.load("wall2.png", Texture.class);
+		assets.load("exit.png", Texture.class);
+		assets.load("wall.png", Texture.class);
 		assets.load("nextLevel.png", Texture.class);
 		assets.load("tryAgain.png", Texture.class);
-		assets.load("background2.png", Texture.class);
+		assets.load("background.png", Texture.class);
 		assets.load("title.png", Texture.class);
 		assets.load("playGame.png", Texture.class);
 		assets.load("howToPlay.png", Texture.class);
@@ -117,7 +117,7 @@ public class SparkFlight extends ApplicationAdapter
 		FileHandle file = Gdx.files.internal("level" + level);
 		StringTokenizer tokens = new StringTokenizer(file.readString());
 		
-		entities.add(new Entity(0, 0, 0, "background2"));
+		entities.add(new Entity(0, 0, 0, "background"));
 		
 		//Loads in game objects as defined line by line in the level file selected
 		while(tokens.hasMoreTokens())
@@ -151,7 +151,7 @@ public class SparkFlight extends ApplicationAdapter
 	
 	public void mainMenu()
 	{
-		Gdx.gl.glClearColor(0, 1, 0, 1);
+		Gdx.gl.glClearColor(204/255f, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		camera.update();
 		

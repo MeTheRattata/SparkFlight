@@ -23,7 +23,7 @@ public class Player extends Entity
 	 */
 	public Player(float x, float y, double c) 
 	{
-		super(x, y, c, "ball2");
+		super(x, y, c, "ball");
 		//Size of ball 90 by 90
 		hitBox = new Circle(x + 45, y + 45, 45);
 		charges = new ArrayList<SourceCharge>();
