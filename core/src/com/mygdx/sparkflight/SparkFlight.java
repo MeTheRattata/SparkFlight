@@ -45,7 +45,7 @@ public class SparkFlight extends ApplicationAdapter
 		//AssetManager: loads all game elements to reduce resources used as a result of each
 		//Entity class having a separate Texture object
 		assets = new AssetManager();
-		assets.load("ball.png", Texture.class);
+		assets.load("ball2.png", Texture.class);
 		assets.load("positive.png", Texture.class);
 		assets.load("negative.png", Texture.class);
 		assets.load("exit2.png", Texture.class);

@@ -2,10 +2,6 @@ package com.mygdx.sparkflight;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Player extends Entity 
@@ -22,7 +18,7 @@ public class Player extends Entity
 	 */
 	public Player(float x, float y, double c) 
 	{
-		super(x, y, c, "ball");
+		super(x, y, c, "ball2");
 		//Size of plane 170 by 90
 		charges = new ArrayList<SourceCharge>();
 	}
