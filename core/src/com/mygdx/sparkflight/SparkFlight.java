@@ -67,8 +67,8 @@ public class SparkFlight extends ApplicationAdapter
 		exit = new Exit(0, 0);
 		plane = new Player(0,0,0);
 		wall = new Wall(0, 0);
-		howToPlay = new Rectangle(width - 600, height - 270, 400, 90);
-		playGame = new Rectangle(width - 600, height - 180, 400, 90);
+		howToPlay = new Rectangle(width - 600, height - 360, 400, 90);
+		playGame = new Rectangle(width - 600, height - 270, 400, 90);
 		render();
 	}
 
@@ -155,9 +155,9 @@ public class SparkFlight extends ApplicationAdapter
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		
-		batch.draw(assets.get("title.png", Texture.class), width - 600, height - 90, 400, 90);
-		batch.draw(assets.get("playGame.png", Texture.class), width - 600, height - 180, 400, 90);
-		batch.draw(assets.get("howToPlay.png", Texture.class), width - 600, height - 270, 400, 90);
+		batch.draw(assets.get("title.png", Texture.class), width - 600, height - 180, 400, 90);
+		batch.draw(assets.get("playGame.png", Texture.class), width - 600, height - 270, 400, 90);
+		batch.draw(assets.get("howToPlay.png", Texture.class), width - 600, height - 360, 400, 90);
 		
 		Gdx.input.setInputProcessor(new InputAdapter ()
 		{
