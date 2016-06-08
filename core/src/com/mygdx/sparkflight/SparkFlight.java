@@ -18,7 +18,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public class SparkFlight extends ApplicationAdapter {
+public class SparkFlight extends ApplicationAdapter
+{
 	public static SpriteBatch batch;
 	//ArrayList of ALL Actors for drawing and acting purposes
 	public static ArrayList<Entity> entities = new ArrayList<Entity>();
@@ -158,8 +159,10 @@ public class SparkFlight extends ApplicationAdapter {
 		batch.draw(assets.get("playGame.png", Texture.class), width - 600, height - 180, 400, 90);
 		batch.draw(assets.get("howToPlay.png", Texture.class), width - 600, height - 270, 400, 90);
 		
-		Gdx.input.setInputProcessor(new InputAdapter () {
-			   public boolean touchUp (int x, int y, int pointer, int button) {
+		Gdx.input.setInputProcessor(new InputAdapter ()
+		{
+			   public boolean touchUp (int x, int y, int pointer, int button)
+			   {
 				   if(button == Buttons.LEFT)
 				   {
 					   Vector2 click = new Vector2(x, height - y);
@@ -202,15 +205,19 @@ public class SparkFlight extends ApplicationAdapter {
 		for(int i = 0; i < entities.size(); i++)
 			entities.get(i).draw();
 		
-		Gdx.input.setInputProcessor(new InputAdapter () {
-			   public boolean touchUp (int x, int y, int pointer, int button) {
-				   if(button == Buttons.LEFT) {
+		Gdx.input.setInputProcessor(new InputAdapter ()
+		{
+			   public boolean touchUp (int x, int y, int pointer, int button)
+			   {
+				   if(button == Buttons.LEFT)
+				   {
 					   SourceCharge newCharge = new SourceCharge(Gdx.input.getX() - assets.get("positive.png", Texture.class).getWidth() / 2, height - Gdx.input.getY() - assets.get("positive.png", Texture.class).getHeight() / 2, 1);
 					   entities.add(newCharge);
 					   Player.charges.add(newCharge);
 					   return true;
 					}
-					else if(button == Buttons.RIGHT) {
+					else if(button == Buttons.RIGHT)
+					{
 						SourceCharge newCharge = new SourceCharge(Gdx.input.getX() - assets.get("negative.png", Texture.class).getWidth() / 2, height - Gdx.input.getY() - assets.get("negative.png", Texture.class).getHeight() / 2, -1);
 						entities.add(newCharge);
 						Player.charges.add(newCharge);
